@@ -35,21 +35,21 @@ namespace PyxeraConcurIntegrationConsole
             {
                 // ----- Fetch Headers -----
                 List<Report> reports = await _expenseService.FetchHeaders();
-                //await _expenseService.SendToBc_ExpensesHeader(reports);
+                await _expenseService.SendToBc_ExpensesHeader(reports);
 
                 // ----- Fetch Entries -----
-                // List<Entry> entries = await _expenseService.FetchEntries();
-                // await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
+                List<Entry> entries = await _expenseService.FetchEntries();
+                await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
 
                 // // ----- Fetch Itemizations -----
-                // List<Itemization> itemizations = await _expenseService.FetchItemizations();
-                // await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                List<Itemization> itemizations = await _expenseService.FetchItemizations();
+                await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
 
                 // // ----- Fetch Invoice Digests -----
-                // List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
-                // await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
-                // await _invoiceService.SendToBc_InvoiceLines(invoiceDigests);
-                // await _invoiceService.SendToBc_InvoiceLineAllocations(invoiceDigests);
+                List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
+                await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
+                await _invoiceService.SendToBc_InvoiceLines(invoiceDigests);
+                await _invoiceService.SendToBc_InvoiceLineAllocations(invoiceDigests);
 
                 // ----- Fetch Payment Jobs -----
                 var stateManager = new StateManager("state.json");
@@ -92,7 +92,7 @@ namespace PyxeraConcurIntegrationConsole
                         if (item.jobid == "gWuuTW0yZqyrUxfH3PimnoigozZ2uyOYxZQ")
                         {
                             var brexmaster = await _paymentService.FetchBrexMasterCards(item.filelink);
-                            //await _paymentService.SendToBC_BrexMaster(brexmaster);
+                            await _paymentService.SendToBC_BrexMaster(brexmaster);
                         }
                         //Tab Separated
                         //Have same data as Brex
@@ -101,7 +101,7 @@ namespace PyxeraConcurIntegrationConsole
                         else if (item.jobid == "gWuuTW0ycpyavfs6tj6lXrKS3xmx7DUC1xg")
                         {
                             var usdsync = await _paymentService.FetchCompanyCheck(item.filelink);
-                            //await _paymentService.SendToBC_CompanyCheck(usdsync);
+                            await _paymentService.SendToBC_CompanyCheck(usdsync);
                         }
                         //Tab Separated
                         //Have same data as Brex
@@ -110,7 +110,7 @@ namespace PyxeraConcurIntegrationConsole
                         else if (item.jobid == "gWuuTW0ye31DVip7hmZNZbEx6hbirkC8S3A")
                         {
                             var usdsync = await _paymentService.FetchExpensePay(item.filelink);
-                            //await _paymentService.SendToBC_ExpensePay(usdsync);
+                            await _paymentService.SendToBC_ExpensePay(usdsync);
                         }
                         //Comma Separated
                         //Have different data
@@ -119,7 +119,7 @@ namespace PyxeraConcurIntegrationConsole
                         else if (item.jobid == "gWuuTW0ye3SekV7dbEKfwOFbGkWYm4ARhDg")
                         {
                             var cashadv = await _paymentService.FetchCashAdvance(item.filelink);
-                            //await _paymentService.SendToBC_CashAdvance(cashadv);
+                            await _paymentService.SendToBC_CashAdvance(cashadv);
                         }
                         else
                         {
