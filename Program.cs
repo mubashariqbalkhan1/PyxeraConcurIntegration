@@ -34,16 +34,16 @@ namespace PyxeraConcurIntegrationConsole
             try
             {
                 // ----- Fetch Headers -----
-                // List<Report> reports = await _expenseService.FetchHeaders();
-                // await _expenseService.SendToBc_ExpensesHeader(reports);
+                List<Report> reports = await _expenseService.FetchHeaders();
+                await _expenseService.SendToBc_ExpensesHeader(reports);
 
-                // // ----- Fetch Entries -----
-                // List<Entry> entries = await _expenseService.FetchEntries();
-                // await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
+                // ----- Fetch Entries -----
+                List<Entry> entries = await _expenseService.FetchEntries();
+                await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
 
-                // // // ----- Fetch Itemizations -----
-                // List<Itemization> itemizations = await _expenseService.FetchItemizations();
-                // await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                // // ----- Fetch Itemizations -----
+                List<Itemization> itemizations = await _expenseService.FetchItemizations();
+                await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
 
                 // // ----- Fetch Invoice Digests -----
                 List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
