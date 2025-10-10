@@ -116,6 +116,21 @@ namespace PyxeraConcurIntegrationConsole
         public string ListItemID { get; set; }
     }
 
+    public class CustomField2
+    {
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string Type { get; set; }
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string Value { get; set; }
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string Code { get; set; }
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string ListItemID { get; set; }
+        public int Sequence { get; set; }
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string Label { get; set; }
+    }
+
     public class BcExpenseHeaderEntry
     {
         public BcExpenseHeaderEntry()

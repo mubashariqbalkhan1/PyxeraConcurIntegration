@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -73,6 +74,21 @@ namespace PyxeraConcurIntegrationConsole
             XmlDocument xmlDoc = new();
             xmlDoc.LoadXml(xmlContent);
             return JsonConvert.SerializeXmlNode(xmlDoc, Newtonsoft.Json.Formatting.Indented);
+        }
+        public async Task<string> GetConcurDataJsonAsync(string accessToken, string url)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, url);
+            request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+            var response = await _httpClient.SendAsync(request);
+            var xmlContent = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"Failed Concur fetch. Status: {response.StatusCode}");
+                return "";
+            }
+            return xmlContent;
         }
         public async Task<string> GetConcurStringDataAsync(string accessToken, string url)
         {
@@ -286,6 +302,49 @@ namespace PyxeraConcurIntegrationConsole
         public CustomField? Custom38 { get; set; }
         public CustomField? Custom39 { get; set; }
         public CustomField? Custom40 { get; set; }
+    }
+    public class Customs2
+    {
+        [XmlElement("Custom1")]
+        public CustomField2? Custom1 { get; set; }
+        [XmlElement("Custom2")]
+        public CustomField2? Custom2 { get; set; }
+        [XmlElement("Custom3")]
+        public CustomField2? Custom3 { get; set; }
+        [XmlElement("Custom4")]
+        public CustomField2? Custom4 { get; set; }
+        [XmlElement("Custom5")]
+        public CustomField2? Custom5 { get; set; }
+        [XmlElement("Custom6")]
+        public CustomField2? Custom6 { get; set; }
+        [XmlElement("Custom7")]
+        public CustomField2? Custom7 { get; set; }
+        [XmlElement("Custom8")]
+        public CustomField2? Custom8 { get; set; }
+        [XmlElement("Custom9")]
+        public CustomField2? Custom9 { get; set; }
+        [XmlElement("Custom10")]
+        public CustomField2? Custom10 { get; set; }
+        [XmlElement("Custom11")]
+        public CustomField2? Custom11 { get; set; }
+        [XmlElement("Custom12")]
+        public CustomField2? Custom12 { get; set; }
+        [XmlElement("Custom13")]
+        public CustomField2? Custom13 { get; set; }
+        [XmlElement("Custom14")]
+        public CustomField2? Custom14 { get; set; }
+        [XmlElement("Custom15")]
+        public CustomField2? Custom15 { get; set; }
+        [XmlElement("Custom16")]
+        public CustomField2? Custom16 { get; set; }
+        [XmlElement("Custom17")]
+        public CustomField2? Custom17 { get; set; }
+        [XmlElement("Custom18")]
+        public CustomField2? Custom18 { get; set; }
+        [XmlElement("Custom19")]
+        public CustomField2? Custom19 { get; set; }
+        [XmlElement("Custom20")]
+        public CustomField2? Custom20 { get; set; }
     }
 
     public class Root<T>

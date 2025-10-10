@@ -37,6 +37,26 @@ namespace PyxeraConcurIntegrationConsole
                 List<Report> reports = await _expenseService.FetchHeaders();
                 await _expenseService.SendToBc_ExpensesHeader(reports);
 
+                // ----- Fetch Expense Allocation -----
+                List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
+                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations);
+
+                // -- Fetch Expense Cash Advances ---
+                List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
+                //distinct cashAdvances
+                var cashAdvances1 = cashAdvances
+                    .GroupBy(ca => ca.CashAdvanceId)
+                    .Select(g => g.First())
+                    .ToList();
+
+                var duplicates = cashAdvances
+                    .GroupBy(ca => ca.CashAdvanceId)
+                    .Where(g => g.Count() > 1)
+                    .Select(g => g.Key)
+                    .ToList();
+
+                await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances1);
+
                 // ----- Fetch Entries -----
                 List<Entry> entries = await _expenseService.FetchEntries();
                 await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
@@ -144,7 +164,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 var endDate = DateTime.Now;
                 var duration = endDate - date;
-                _logger.LogInformation($"✅ Synchronization completed successfully in {duration.Minutes} minutes and {duration.Seconds} seconds!");
+                _logger.LogInformation($"✅ Synchronization completed successfully in {duration.Hours} hours {duration.Minutes} minutes and {duration.Seconds} seconds!");
             }
             catch (Exception ex)
             {
@@ -160,7 +180,7 @@ namespace PyxeraConcurIntegrationConsole
         {
             // Detect environment (default = Production)
             var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "production";
-            environment = "production";
+            environment = "development"; // Forcing to development for testing
 
             Console.WriteLine($"Environment: {environment}");
 
@@ -184,7 +204,7 @@ namespace PyxeraConcurIntegrationConsole
             services.AddHttpClient<ConcurSyncService>(client =>
             {
                 client.Timeout = TimeSpan.FromMinutes(5); // Increase timeout to 5 minutes
-            }); 
+            });
 
             var provider = services.BuildServiceProvider();
             var service = provider.GetRequiredService<ConcurSyncService>();
