@@ -99,13 +99,19 @@ namespace PyxeraConcurIntegrationConsole
                         Console.WriteLine($"Report ID: {item.ID} has multiple cash advances: {totalCashAdv}");
                     foreach (var item1 in serialized.CashAdvances)
                     {
-                        string url1 = _config["Concur:Expense_CashAdvance"];
-                        string requestUrl1 = url1.Replace("{id}", item1.Id);
-                        var json1 = await _commonFunctions.GetConcurDataJsonAsync(accessToken, requestUrl1);
-                        var serialized1 = JsonConvert.DeserializeObject<ExpenseCashAdvance>(json1);
-                        serialized1.ReportId = item1.Id;
-                        reports.Add(serialized1);
-                        Console.WriteLine($"Fetched {reports.Count} cash advance reports so far.");
+                        if (!string.IsNullOrEmpty(item1.Id))
+                        {
+                            string url1 = _config["Concur:Expense_CashAdvance"];
+                            string requestUrl1 = url1.Replace("{id}", item1.Id);
+                            var json1 = await _commonFunctions.GetConcurDataJsonAsync(accessToken, requestUrl1);
+                            var serialized1 = JsonConvert.DeserializeObject<ExpenseCashAdvance>(json1);
+                            if (serialized1 != null)
+                            {
+                                serialized1.ReportId = item1.Id;
+                                reports.Add(serialized1);
+                                Console.WriteLine($"Fetched {reports.Count} cash advance reports so far.");
+                            }
+                        }
                     }
                 }
                 count++;
