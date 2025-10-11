@@ -130,7 +130,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
@@ -225,7 +225,7 @@ namespace PyxeraConcurIntegrationConsole
                             }
                             updated++;
                         }
-                        Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                        //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
                     }
                 }
                 catch
@@ -321,7 +321,7 @@ namespace PyxeraConcurIntegrationConsole
                             }
                             updated++;
                         }
-                        Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                        //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
                     }
                 }
             }

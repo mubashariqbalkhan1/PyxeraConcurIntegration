@@ -244,7 +244,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ ExpensesHeader: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
@@ -319,7 +319,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
@@ -393,7 +393,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
@@ -467,7 +467,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
@@ -542,7 +542,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"✅ BcExpenseHeaderItemization: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
