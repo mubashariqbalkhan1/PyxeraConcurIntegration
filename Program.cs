@@ -200,7 +200,16 @@ namespace PyxeraConcurIntegrationConsole
             }
 
             services.AddSingleton<IConfiguration>(config);
-            services.AddLogging(builder => builder.AddConsole());
+            services.AddLogging(builder =>
+            {
+                builder.AddConsole();
+
+                // Suppress internal .NET and HTTP client logs
+                builder.AddFilter("System.Net.Http.HttpClient", LogLevel.None);
+                builder.AddFilter("System", LogLevel.Warning);
+                builder.AddFilter("Microsoft", LogLevel.Warning);
+            });
+
             services.AddHttpClient<ConcurSyncService>(client =>
             {
                 client.Timeout = TimeSpan.FromMinutes(5); // Increase timeout to 5 minutes
