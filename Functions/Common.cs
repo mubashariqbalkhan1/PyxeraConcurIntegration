@@ -122,6 +122,7 @@ namespace PyxeraConcurIntegrationConsole
         #endregion
         public async Task SendDataToBc<T>(IEnumerable<T> dataObjects, string requestUrl, string bcToken, string calledFrom)
         {
+            Console.WriteLine($"Starting to send {dataObjects.Count()} {calledFrom} to Business Central...");
             int success = 0, failure = 0, total = dataObjects.Count();
             List<string> errors = new List<string>();
             foreach (var obj in dataObjects)
@@ -145,7 +146,6 @@ namespace PyxeraConcurIntegrationConsole
                     {
                         success++;
                     }
-                    Console.WriteLine($"Processed total: {success + failure}, out of {total}, remaining: {total - (success + failure)}");
                 }
                 catch (Exception ex)
                 {

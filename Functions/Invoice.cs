@@ -50,7 +50,6 @@ namespace PyxeraConcurIntegrationConsole
                 {
                     paymentrequest.Add(pr);
                 }
-                Console.WriteLine($"Fetched {paymentrequest.Count} items so far.");
             }
             return paymentrequest;
         }
@@ -65,6 +64,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task SendToBc_InvoiceHeaders(List<PaymentRequest> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Invoice Headers to Business Central...");
             bool hasData = true;
             var list = new List<BC_InvoiceHeader>();
             var requestUrl = _config["BusinessCentral:BC_Invoice_Header"];
@@ -139,6 +139,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task SendToBc_InvoiceLines(List<PaymentRequest> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Sum(pr => pr.LineItems?.LineItem.Count ?? 0)} Invoice Line Items to Business Central...");
             bool hasData = true;
             var list = new List<BC_InvoiceLineItem>();
             var requestUrl = _config["BusinessCentral:BC_Invoice_Lines"];
@@ -240,6 +241,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task SendToBc_InvoiceLineAllocations(List<PaymentRequest> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Sum(pr => pr.LineItems?.LineItem.Sum(li => li.Allocations?.Allocation.Count ?? 0) ?? 0)} Invoice Line Item Allocations to Business Central...");
             bool hasData = true;
             var list = new List<BC_Invoice_Allocations>();
             var requestUrl = _config["BusinessCentral:BC_Invoice_Allocations"];

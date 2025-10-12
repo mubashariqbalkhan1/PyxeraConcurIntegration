@@ -44,7 +44,6 @@ namespace PyxeraConcurIntegrationConsole
                     url = serialized.Reports.NextPage;
                 }
                 reports.AddRange(serialized.Reports.Items.Report);
-                Console.WriteLine($"Fetched {reports.Count} reports so far.");
             }
             return reports;
         }
@@ -74,7 +73,6 @@ namespace PyxeraConcurIntegrationConsole
                     url = serialized.Allocations.NextPage;
                 }
                 reports.AddRange(serialized.Allocations.Items.Allocation);
-                Console.WriteLine($"Fetched {reports.Count} reports so far.");
             }
             return reports;
         }
@@ -109,13 +107,11 @@ namespace PyxeraConcurIntegrationConsole
                             {
                                 serialized1.ReportId = item1.Id;
                                 reports.Add(serialized1);
-                                Console.WriteLine($"Fetched {reports.Count} cash advance reports so far.");
                             }
                         }
                     }
                 }
                 count++;
-                Console.WriteLine($"Processed {count} Expense Headers of {total} so far.");
             }
             return reports;
         }
@@ -146,9 +142,7 @@ namespace PyxeraConcurIntegrationConsole
                     url = serialized.Entries.NextPage;
                 }
                 entries.AddRange(serialized.Entries.Items.Entry);
-                Console.WriteLine($"Fetched {entries.Count} entries so far.");
             }
-
             return entries;
         }
 
@@ -178,12 +172,12 @@ namespace PyxeraConcurIntegrationConsole
                     url = serialized.Itemizations.NextPage;
                 }
                 items.AddRange(serialized.Itemizations.Items.Itemization);
-                Console.WriteLine($"Fetched {items.Count} itemizations so far.");
             }
             return items;
         }
         public async Task SendToBc_ExpensesHeader(List<Report> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Headers to Business Central...");
             bool hasData = true;
             var list = new List<BcExpenseHeader>();
             var requestUrl = _config["BusinessCentral:BC_Header_API"];
@@ -252,6 +246,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task SendToBc_ExpensesHeaderEntries(List<Entry> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Entries to Business Central...");
             bool hasData = true;
             var list = new List<BcExpenseHeaderEntry>();
             var requestUrl = _config["BusinessCentral:BC_Entries_API"];
@@ -326,6 +321,7 @@ namespace PyxeraConcurIntegrationConsole
         }
         public async Task SendToBc_ExpensesHeaderCashAdvance(List<ExpenseCashAdvance> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Cash Advances to Business Central...");
             bool hasData = true;
             var list = new List<BC_ExpenseCashAdvance>();
             var requestUrl = _config["BusinessCentral:BC_Expense_CashAdv_API"];
@@ -400,6 +396,7 @@ namespace PyxeraConcurIntegrationConsole
         }
         public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Header Allocations to Business Central...");
             bool hasData = true;
             var list = new List<BcExpenseHeaderAllocation>();
             var requestUrl = _config["BusinessCentral:BC_Expense_Alloc_API"];
@@ -475,6 +472,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task SendToBc_ExpensesHeaderItemization(List<Itemization> concurExpenses)
         {
+            Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Itemizations to Business Central...");
             bool hasData = true;
             var list = new List<BcExpenseHeaderItemization>();
             var requestUrl = _config["BusinessCentral:BC_Itemization_API"];
