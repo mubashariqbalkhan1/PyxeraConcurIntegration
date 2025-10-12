@@ -16,6 +16,7 @@ namespace PyxeraConcurIntegrationConsole
         }
         public async Task<List<PaymentRequest>> FetchInvoiceDigest()
         {
+            Console.WriteLine("Fetching Invoice Digests from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Invoice_Digests"];
             var items = new List<PaymentRequestDigest>();

@@ -20,6 +20,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task<List<Report>> FetchHeaders()
         {
+            Console.WriteLine("Fetching Expense Headers from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_Header"];
             var reports = new List<Report>();
@@ -49,6 +50,7 @@ namespace PyxeraConcurIntegrationConsole
         }
         public async Task<List<ReportAllocation>> FetchExpenseAllocations()
         {
+            Console.WriteLine("Fetching Expense Allocations from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_Allocations"];
             var reports = new List<ReportAllocation>();
@@ -79,6 +81,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task<List<ExpenseCashAdvance>> FetchExpenseCashAdvance(List<Report> report)
         {
+            Console.WriteLine("Fetching Expense Cash Advances from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_CashAdvId"];
             var reports = new List<ExpenseCashAdvance>();
@@ -118,6 +121,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task<List<Entry>> FetchEntries()
         {
+            Console.WriteLine("Fetching Expense Entries from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_Entries"];
             var entries = new List<Entry>();
@@ -148,6 +152,7 @@ namespace PyxeraConcurIntegrationConsole
 
         public async Task<List<Itemization>> FetchItemizations()
         {
+            Console.WriteLine("Fetching Expense Itemizations from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_Itemizations"];
             var items = new List<Itemization>();

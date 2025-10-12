@@ -24,6 +24,7 @@ namespace PyxeraConcurIntegrationConsole
         }
         public async Task<List<Job>> FetchPaymentJobsAsync()
         {
+            Console.WriteLine("Fetching Payment Jobs from Concur...");
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
 
             string Payment_Types = _config["Concur:Payment_Types"];
