@@ -54,6 +54,12 @@ namespace PyxeraConcurIntegrationConsole
                     .Where(g => g.Count() > 1)
                     .Select(g => g.Key)
                     .ToList();
+                //print duplicates
+                foreach (var dup in duplicates)
+                {
+                    var dups = cashAdvances.Where(ca => ca.CashAdvanceId == dup).ToList();
+                    Console.WriteLine(dups);
+                }
 
                 await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances1);
 

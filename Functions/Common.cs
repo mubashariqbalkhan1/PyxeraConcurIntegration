@@ -67,7 +67,8 @@ namespace PyxeraConcurIntegrationConsole
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Failed Concur fetch. Status: {response.StatusCode}");
+                Console.WriteLine($"Failed Concur fetch. Message: {response.ReasonPhrase}");
+                Console.WriteLine(url);
                 return "";
             }
 
@@ -85,7 +86,8 @@ namespace PyxeraConcurIntegrationConsole
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Failed Concur fetch. Status: {response.StatusCode}");
+                Console.WriteLine($"Failed Concur fetch. Message: {response.ReasonPhrase}");
+                Console.WriteLine(url);
                 return "";
             }
             return xmlContent;
@@ -100,7 +102,8 @@ namespace PyxeraConcurIntegrationConsole
 
             if (!response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Failed Concur fetch. Status: {response.StatusCode}");
+                Console.WriteLine($"Failed Concur fetch. Message: {response.ReasonPhrase}");
+                Console.WriteLine(url);
                 return "";
             }
 

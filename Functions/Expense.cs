@@ -108,7 +108,7 @@ namespace PyxeraConcurIntegrationConsole
                             var serialized1 = JsonConvert.DeserializeObject<ExpenseCashAdvance>(json1);
                             if (serialized1 != null)
                             {
-                                serialized1.ReportId = item1.Id;
+                                serialized1.ReportId = item.ID;
                                 reports.Add(serialized1);
                             }
                         }
