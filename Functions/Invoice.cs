@@ -134,7 +134,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
 
         }
 
@@ -237,7 +237,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
 
         public async Task SendToBc_InvoiceLineAllocations(List<PaymentRequest> concurExpenses)
@@ -329,7 +329,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
     }
 }

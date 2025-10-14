@@ -172,7 +172,6 @@ namespace PyxeraConcurIntegrationConsole
                 var content = await response.Content.ReadAsStringAsync();
                 if (!response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"BC send failed. Status: {response.StatusCode}, Response: {content}");
                     return $"Error: {response.StatusCode}, Message: {content}";
                 }
                 return "success";
@@ -199,7 +198,6 @@ namespace PyxeraConcurIntegrationConsole
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"BC send failed. Status: {response.StatusCode}, Response: {content}");
                     return $"Error: {response.StatusCode}, Message: {content}";
                 }
                 return "success";

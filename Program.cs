@@ -54,12 +54,6 @@ namespace PyxeraConcurIntegrationConsole
                     .Where(g => g.Count() > 1)
                     .Select(g => g.Key)
                     .ToList();
-                //print duplicates
-                foreach (var dup in duplicates)
-                {
-                    var dups = cashAdvances.Where(ca => ca.CashAdvanceId == dup).ToList();
-                    Console.WriteLine(dups);
-                }
 
                 await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances1);
 
@@ -97,7 +91,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 if (!paymentJobsToRun.Any())
                 {
-                    Console.WriteLine($"✔ No payment jobs found for {currentMonth}, skipping.");
+                    Console.WriteLine($"No payment jobs found for {currentMonth}, skipping.");
                 }
                 else
                 {
@@ -108,10 +102,10 @@ namespace PyxeraConcurIntegrationConsole
 
                         if (alreadyProcessed)
                         {
-                            Console.WriteLine($"✔ Job {item.jobid} already processed for {currentMonth}, skipping.");
+                            Console.WriteLine($"Job {item.jobid} already processed for {currentMonth}, skipping.");
                             continue;
                         }
-                        Console.WriteLine($"▶ Processing job: {item.jobname} (ID: {item.jobid})");
+                        Console.WriteLine($"Processing job: {item.jobname} (ID: {item.jobid})");
 
                         //Comma Separated
                         //BREX Mastercard - 20220331080753
@@ -165,16 +159,16 @@ namespace PyxeraConcurIntegrationConsole
                     // Save state after all jobs processed
                     state.LastRunDate = DateTime.UtcNow;
                     stateManager.Save(state);
-                    Console.WriteLine($"✅ Jobs for {currentMonth} processed and state updated.");
+                    Console.WriteLine($"Jobs for {currentMonth} processed and state updated.");
                 }
 
                 var endDate = DateTime.Now;
                 var duration = endDate - date;
-                _logger.LogInformation($"✅ Synchronization completed successfully in {duration.Hours} hours {duration.Minutes} minutes and {duration.Seconds} seconds!");
+                _logger.LogInformation($"Synchronization completed successfully in {duration.Hours} hours {duration.Minutes} minutes and {duration.Seconds} seconds!");
             }
             catch (Exception ex)
             {
-                _logger.LogError($"❌ Exception: {ex.Message}");
+                _logger.LogError($"Exception: {ex.Message}");
             }
         }
 

@@ -95,9 +95,6 @@ namespace PyxeraConcurIntegrationConsole
                 var serialized = JsonConvert.DeserializeObject<CashAdvanceResponse>(json);
                 if (serialized.CashAdvances != null && serialized.CashAdvances.Count > 0)
                 {
-                    int totalCashAdv = serialized.CashAdvances.Count;
-                    if (totalCashAdv > 1)
-                        Console.WriteLine($"Report ID: {item.ID} has multiple cash advances: {totalCashAdv}");
                     foreach (var item1 in serialized.CashAdvances)
                     {
                         if (!string.IsNullOrEmpty(item1.Id))
@@ -246,7 +243,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ ExpensesHeader: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"ExpensesHeader: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
 
         public async Task SendToBc_ExpensesHeaderEntries(List<Entry> concurExpenses)
@@ -322,7 +319,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
         public async Task SendToBc_ExpensesHeaderCashAdvance(List<ExpenseCashAdvance> concurExpenses)
         {
@@ -397,7 +394,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
         public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses)
         {
@@ -472,7 +469,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
         }
 
         public async Task SendToBc_ExpensesHeaderItemization(List<Itemization> concurExpenses)
@@ -548,7 +545,7 @@ namespace PyxeraConcurIntegrationConsole
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"✅ BcExpenseHeaderItemization: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderItemization: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
 
         }
     }
