@@ -180,7 +180,7 @@ namespace PyxeraConcurIntegrationConsole
         {
             // Detect environment (default = Production)
             var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "production";
-            environment = "development"; // Forcing to development for testing
+            //environment = "development"; // Forcing to development for testing
 
             Console.WriteLine($"Environment: {environment}");
 
