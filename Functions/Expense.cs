@@ -378,7 +378,7 @@ namespace PyxeraConcurIntegrationConsole
                     //update
                     var url = _config["BusinessCentral:BC_Expense_CashAdv_API"];
                     //string systemId = list.First(bc => bc.CashAdvanceId.ToLower() == item.CashAdvanceId.ToLower()).SystemId;
-                    url = url + $"('" + item.CashAdvanceId + "')";
+                    url = url + $"('" + item.ReportId + "','" + item.CashAdvanceId + "')";
                     var result = await _commonFunctions.UpdateDataToBcSingle(new BC_ExpenseCashAdvance(item), url, bcToken);
                     if (result == "success")
                     {
