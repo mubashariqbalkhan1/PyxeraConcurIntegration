@@ -63,23 +63,43 @@ namespace PyxeraConcurIntegrationConsole
                 if (jObject.TryGetValue("xsi:nil", StringComparison.OrdinalIgnoreCase, out JToken nilToken) &&
                     string.Equals(nilToken?.ToString(), "true", StringComparison.OrdinalIgnoreCase))
                 {
-                    return null; // return null instead of ""
+                    return null; // handle xsi:nil="true"
                 }
             }
 
-            if (reader.TokenType == JsonToken.String && DateTimeOffset.TryParse(reader.Value?.ToString(), out var dto))
+            if (reader.TokenType == JsonToken.String)
             {
-                return dto;
+                var str = reader.Value?.ToString();
+                if (string.IsNullOrWhiteSpace(str))
+                    return null;
+
+                if (DateTimeOffset.TryParse(str, out var dto))
+                    return dto;
+
+                return null;
             }
 
-            return null; // fallback
+            if (reader.TokenType == JsonToken.Date)
+            {
+                // Directly cast to DateTimeOffset
+                if (reader.Value is DateTimeOffset dto)
+                    return dto;
+                if (reader.Value is DateTime dt)
+                    return new DateTimeOffset(dt);
+
+                return null;
+            }
+
+            // Anything else → null
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, DateTimeOffset? value, JsonSerializer serializer)
         {
             if (value.HasValue)
             {
-                writer.WriteValue(value.Value);
+                // You can format if you want (ISO 8601)
+                writer.WriteValue(value.Value.ToString("o"));
             }
             else
             {
@@ -87,6 +107,7 @@ namespace PyxeraConcurIntegrationConsole
             }
         }
     }
+
     public class SingleOrArrayConverter<T> : JsonConverter
     {
         public override bool CanConvert(Type objectType)
