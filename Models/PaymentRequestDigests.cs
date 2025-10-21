@@ -379,7 +379,7 @@ namespace PyxeraConcurIntegrationConsole
             invoiceAmount = pr.InvoiceAmount;
             invoiceConfirmed = pr.IsInvoiceConfirmed;
             invoiceDate = pr.InvoiceDate?.ToUniversalTime();
-            invoiceNumber = int.TryParse(pr.InvoiceNumber, out int invNum) ? invNum : 0;
+            invoiceNumber = pr.InvoiceNumber;
             lastSubmitDate = pr.LastSubmitDate?.ToUniversalTime();
             ledgerCode = pr.LedgerCode;
             lineTotalAmount = pr.LineItemTotalAmount;
@@ -421,7 +421,7 @@ namespace PyxeraConcurIntegrationConsole
         public decimal invoiceAmount { get; set; }
         public bool invoiceConfirmed { get; set; }
         public DateTimeOffset? invoiceDate { get; set; }
-        public int invoiceNumber { get; set; }
+        public string invoiceNumber { get; set; }
         public DateTimeOffset? lastSubmitDate { get; set; }
         public string? ledgerCode { get; set; }
         public decimal lineTotalAmount { get; set; }
