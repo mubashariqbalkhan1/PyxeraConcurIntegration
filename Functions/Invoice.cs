@@ -49,6 +49,7 @@ namespace PyxeraConcurIntegrationConsole
                 var pr = await FetchPaymentRequest(accessToken, item.ID);
                 if (pr != null)
                 {
+                    pr.PoNumber = item.PurchaseOrderNumber;
                     paymentrequest.Add(pr);
                 }
             }

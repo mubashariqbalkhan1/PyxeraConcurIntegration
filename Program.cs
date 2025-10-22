@@ -43,18 +43,6 @@ namespace PyxeraConcurIntegrationConsole
 
                 // -- Fetch Expense Cash Advances ---
                 List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
-                //distinct cashAdvances
-                 var cashAdvances1 = cashAdvances
-                    .GroupBy(ca => ca.CashAdvanceId)
-                    .Select(g => g.First())
-                    .ToList();
-
-                var duplicates = cashAdvances
-                    .GroupBy(ca => ca.CashAdvanceId)
-                    .Where(g => g.Count() > 1)
-                    .Select(g => g.Key)
-                    .ToList();
-
                 await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances);
 
                 // ----- Fetch Entries -----

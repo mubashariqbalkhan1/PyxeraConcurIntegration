@@ -229,9 +229,12 @@ namespace PyxeraConcurIntegrationConsole
 
         [JsonConverter(typeof(NullReplacementConverter))]
         public string? TaxCode4 { get; set; }
+        [JsonConverter(typeof(NullReplacementConverter))]
+        public string? Custom3 { get; set; }
 
         public VendorRemitAddress? VendorRemitAddress { get; set; }
         public LineItemsWrapper? LineItems { get; set; }
+
     }
     public class LineItemEx
     {
@@ -386,7 +389,7 @@ namespace PyxeraConcurIntegrationConsole
             lineVATAmount = pr.LineItemVatAmount;
             name = pr.Name;
             notesToVendor = pr.NotesToVendor;
-            poNumber = int.TryParse(pr.PoNumber, out int poNum) ? poNum : 0;
+            poNumber = !string.IsNullOrEmpty(pr.PoNumber) ? pr.PoNumber : "";
             paidAmount = pr.PaidAmount;
             paidDate = pr.PaidDate?.ToUniversalTime();
             paymentDueDate = pr.PaymentDueDate?.ToUniversalTime();
@@ -402,6 +405,7 @@ namespace PyxeraConcurIntegrationConsole
             vendorName = pr.VendorRemitAddress?.Name;
             vendorRemitAdd = pr.VendorRemitAddress.Address1;
             vendorRemitAdd2 = pr.VendorRemitAddress.Address2;
+            postingPeriod = pr.Custom3;
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -428,7 +432,7 @@ namespace PyxeraConcurIntegrationConsole
         public decimal lineVATAmount { get; set; }
         public string? name { get; set; }
         public string? notesToVendor { get; set; }
-        public int poNumber { get; set; }
+        public string? poNumber { get; set; }
         public decimal paidAmount { get; set; }
         public DateTimeOffset? paidDate { get; set; }
         public DateTimeOffset? paymentDueDate { get; set; }
@@ -444,6 +448,7 @@ namespace PyxeraConcurIntegrationConsole
         public string? vendorName { get; set; }
         public string? vendorRemitAdd { get; set; }
         public string? vendorRemitAdd2 { get; set; }
+        public string? postingPeriod { get; set; }
     }
     public class BC_InvoiceLineItem
     {
