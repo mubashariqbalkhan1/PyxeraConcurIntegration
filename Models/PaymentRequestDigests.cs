@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Globalization;
+using Newtonsoft.Json;
 namespace PyxeraConcurIntegrationConsole
 {
     public class PaymentRequestDigestsRoot
@@ -405,7 +406,22 @@ namespace PyxeraConcurIntegrationConsole
             vendorName = pr.VendorRemitAddress?.Name;
             vendorRemitAdd = pr.VendorRemitAddress.Address1;
             vendorRemitAdd2 = pr.VendorRemitAddress.Address2;
-            postingPeriod = pr.Custom3;
+            if (string.IsNullOrEmpty(pr.Custom3))
+            {
+                postingPeriod = null;
+            }
+            else
+            {
+                if (DateTime.TryParseExact(pr.Custom3, "MMddyyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime pd))
+                {
+                    postingPeriod = DateOnly.FromDateTime(pd);
+                }
+                else
+                {
+                    postingPeriod = null; 
+                }
+            }
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -448,7 +464,7 @@ namespace PyxeraConcurIntegrationConsole
         public string? vendorName { get; set; }
         public string? vendorRemitAdd { get; set; }
         public string? vendorRemitAdd2 { get; set; }
-        public string? postingPeriod { get; set; }
+        public DateOnly? postingPeriod { get; set; }
     }
     public class BC_InvoiceLineItem
     {
