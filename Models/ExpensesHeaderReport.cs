@@ -1,4 +1,5 @@
 ﻿// Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
+using System.Globalization;
 using Newtonsoft.Json;
 namespace PyxeraConcurIntegrationConsole
 {
@@ -107,6 +108,24 @@ namespace PyxeraConcurIntegrationConsole
             totalClaimedAmount = Decimal.Parse(report.TotalClaimedAmount);
             totalApprovedAmount = Decimal.Parse(report.TotalApprovedAmount);
             employeeId = report.Custom10.Value;
+            submitDate = report.SubmitDate;
+            createDate = report.CreateDate;
+            if (string.IsNullOrEmpty(report.Custom7.Value))
+            {
+                postingPeriod = null;
+            }
+            else
+            {
+                if (DateTime.TryParseExact(report.Custom7.Code, "MMddyyyy",
+                    CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime pd))
+                {
+                    postingPeriod = pd;
+                }
+                else
+                {
+                    postingPeriod = null;
+                }
+            }
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -126,6 +145,9 @@ namespace PyxeraConcurIntegrationConsole
         public decimal totalClaimedAmount { get; set; }
         public decimal totalApprovedAmount { get; set; }
         public string employeeId { get; set; }
+        public DateTimeOffset? submitDate { get; set; }
+        public DateTimeOffset? createDate { get; set; }
+        public DateTimeOffset? postingPeriod { get; set; }
     }
 
 }

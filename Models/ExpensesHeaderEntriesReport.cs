@@ -147,7 +147,7 @@ namespace PyxeraConcurIntegrationConsole
             expenseTypeName = entry.ExpenseTypeName;
             paymentTypeId = entry.PaymentTypeID;
             paymentTypeName = entry.PaymentTypeName;
-            transactionDate = entry.TransactionDate.ToUniversalTime();
+            transactionDate = entry.TransactionDate;
             transactionCurrencyCode = entry.TransactionCurrencyCode;
             transactionAmount = entry.TransactionAmount;
             exchangeRate = entry.ExchangeRate;
