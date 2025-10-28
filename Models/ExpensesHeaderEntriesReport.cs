@@ -147,7 +147,9 @@ namespace PyxeraConcurIntegrationConsole
             expenseTypeName = entry.ExpenseTypeName;
             paymentTypeId = entry.PaymentTypeID;
             paymentTypeName = entry.PaymentTypeName;
-            transactionDate = entry.TransactionDate;
+            transactionDate = new DateTimeOffset(
+                                entry.TransactionDate.Year, entry.TransactionDate.Month, entry.TransactionDate.Day,
+                                entry.TransactionDate.Hour, entry.TransactionDate.Minute, entry.TransactionDate.Second, TimeSpan.Zero);
             transactionCurrencyCode = entry.TransactionCurrencyCode;
             transactionAmount = entry.TransactionAmount;
             exchangeRate = entry.ExchangeRate;
@@ -185,7 +187,7 @@ namespace PyxeraConcurIntegrationConsole
         public string expenseTypeName { get; set; }
         public string paymentTypeId { get; set; }
         public string paymentTypeName { get; set; }
-        public DateTime transactionDate { get; set; }
+        public DateTimeOffset transactionDate { get; set; }
         public string transactionCurrencyCode { get; set; }
         public decimal transactionAmount { get; set; }
         public decimal exchangeRate { get; set; }
