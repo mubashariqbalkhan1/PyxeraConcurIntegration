@@ -78,6 +78,37 @@ namespace PyxeraConcurIntegrationConsole
             }
             return reports;
         }
+        public async Task<List<ReportAllocation>> FetchExpenseAllocationsItemization(List<Itemization> itemizations)
+        {
+            Console.WriteLine("Fetching Expense Allocations from Concur...");
+            string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
+            string url = _config["Concur:Expense_AllocationsItemization"];
+            var reports = new List<ReportAllocation>();
+            bool hasData = true;
+            var concurTokenTime = DateTime.Now;
+
+            while (hasData)
+            {
+                // Refresh Concur token every 25 minutes
+                if ((DateTime.Now - concurTokenTime).TotalMinutes > 25)
+                {
+                    accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
+                    concurTokenTime = DateTime.Now;
+                }
+                foreach (var item in itemizations)
+                {
+                    string itemUrl = url.Replace("{user}", item.ReportOwnerID).Replace("{itemizationID}", item.ID);
+                    var itemJson = await _commonFunctions.GetConcurDataAsync(accessToken, itemUrl);
+                    Console.WriteLine(itemJson);
+                    var itemSerialized = JsonConvert.DeserializeObject<ExpensesHeaderReportAllocation>(itemJson);
+                    if (itemSerialized?.Allocations?.Items?.Allocation != null)
+                    {
+                        reports.AddRange(itemSerialized.Allocations.Items.Allocation);
+                    }
+                }
+            }
+            return reports;
+        }
 
         public async Task<List<ExpenseCashAdvance>> FetchExpenseCashAdvance(List<Report> report)
         {

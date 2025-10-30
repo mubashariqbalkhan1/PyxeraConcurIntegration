@@ -53,6 +53,10 @@ namespace PyxeraConcurIntegrationConsole
                 List<Itemization> itemizations = await _expenseService.FetchItemizations();
                 await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
 
+                // ----- Fetch Expense Allocation based on Itemization -----
+                List<ReportAllocation> expenseAllocationsItemization = await _expenseService.FetchExpenseAllocationsItemization(itemizations);
+                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocationsItemization);
+
                 // // ----- Fetch Invoice Digests -----
                 List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
                 await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
@@ -168,7 +172,7 @@ namespace PyxeraConcurIntegrationConsole
         {
             // Detect environment (default = Production)
             var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "production";
-            //environment = "production";
+            environment = "development";
 
             Console.WriteLine($"Environment: {environment}");
 

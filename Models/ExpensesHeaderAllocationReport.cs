@@ -19,7 +19,9 @@ namespace PyxeraConcurIntegrationConsole
     }
     public class ReportsHeaderAllocation
     {
-        public List<ReportAllocation> Allocation { get; set; }
+        [JsonProperty("Allocation")]
+        [JsonConverter(typeof(SingleOrArrayConverter<ReportAllocation>))]
+        public List<ReportAllocation>? Allocation { get; set; }
     }
     public class ReportAllocation : Customs2
     {
@@ -47,6 +49,15 @@ namespace PyxeraConcurIntegrationConsole
             this.EntryId = report.EntryID;
             this.AccountCode = report.AccountCode1;
             this.Percentage = report.Percentage;
+            detailedDescription = report.Custom1.Value;
+            departmentCode = report.Custom2.Code;
+            departmentName = report.Custom2.Value;
+            programCode = report.Custom4.Code;
+            programName = report.Custom4.Value;
+            activityCode = report.Custom5.Code;
+            activityName = report.Custom5.Value;
+            locationCode = report.Custom6.Code;
+            locationName = report.Custom6.Value;
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -54,5 +65,14 @@ namespace PyxeraConcurIntegrationConsole
         public string EntryId { get; set; }
         public string AccountCode { get; set; }
         public decimal Percentage { get; set; }
+        public string detailedDescription { get; set; }
+        public string departmentCode { get; set; }
+        public string departmentName { get; set; }
+        public string programCode { get; set; }
+        public string programName { get; set; }
+        public string activityCode { get; set; }
+        public string activityName { get; set; }
+        public string locationCode { get; set; }
+        public string locationName { get; set; }
     }
 }
