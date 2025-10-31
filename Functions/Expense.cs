@@ -104,6 +104,10 @@ namespace PyxeraConcurIntegrationConsole
                     {
                         reports.AddRange(itemSerialized.Allocations.Items.Allocation);
                     }
+                    if (reports.Count() % 100 == 0)
+                    {
+                        Console.WriteLine($"Fetched {reports.Count()} allocations so far");
+                    }
                 }
             }
             return reports;
