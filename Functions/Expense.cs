@@ -84,30 +84,28 @@ namespace PyxeraConcurIntegrationConsole
             string accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
             string url = _config["Concur:Expense_AllocationsItemization"];
             var reports = new List<ReportAllocation>();
-            bool hasData = true;
             var concurTokenTime = DateTime.Now;
+            int count = 0;
 
-            while (hasData)
+            // Refresh Concur token every 25 minutes
+            if ((DateTime.Now - concurTokenTime).TotalMinutes > 25)
             {
-                // Refresh Concur token every 25 minutes
-                if ((DateTime.Now - concurTokenTime).TotalMinutes > 25)
+                accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
+                concurTokenTime = DateTime.Now;
+            }
+            foreach (var item in itemizations)
+            {
+                string itemUrl = url.Replace("{user}", item.ReportOwnerID).Replace("{itemizationID}", item.ID);
+                var itemJson = await _commonFunctions.GetConcurDataAsync(accessToken, itemUrl);
+                var itemSerialized = JsonConvert.DeserializeObject<ExpensesHeaderReportAllocation>(itemJson);
+                if (itemSerialized?.Allocations?.Items?.Allocation != null)
                 {
-                    accessToken = await _commonFunctions.GetConcurAccessTokenAsync();
-                    concurTokenTime = DateTime.Now;
+                    reports.AddRange(itemSerialized.Allocations.Items.Allocation);
                 }
-                foreach (var item in itemizations)
+                count++;
+                if (reports.Count() % 100 == 0)
                 {
-                    string itemUrl = url.Replace("{user}", item.ReportOwnerID).Replace("{itemizationID}", item.ID);
-                    var itemJson = await _commonFunctions.GetConcurDataAsync(accessToken, itemUrl);
-                    var itemSerialized = JsonConvert.DeserializeObject<ExpensesHeaderReportAllocation>(itemJson);
-                    if (itemSerialized?.Allocations?.Items?.Allocation != null)
-                    {
-                        reports.AddRange(itemSerialized.Allocations.Items.Allocation);
-                    }
-                    if (reports.Count() % 100 == 0)
-                    {
-                        Console.WriteLine($"Fetched {reports.Count()} allocations so far");
-                    }
+                    Console.WriteLine($"Fetched {reports.Count()} allocations so far from {count} itemizations...");
                 }
             }
             return reports;
