@@ -99,7 +99,6 @@ namespace PyxeraConcurIntegrationConsole
                 {
                     string itemUrl = url.Replace("{user}", item.ReportOwnerID).Replace("{itemizationID}", item.ID);
                     var itemJson = await _commonFunctions.GetConcurDataAsync(accessToken, itemUrl);
-                    Console.WriteLine(itemJson);
                     var itemSerialized = JsonConvert.DeserializeObject<ExpensesHeaderReportAllocation>(itemJson);
                     if (itemSerialized?.Allocations?.Items?.Allocation != null)
                     {
