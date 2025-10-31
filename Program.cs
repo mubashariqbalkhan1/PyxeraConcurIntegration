@@ -33,25 +33,25 @@ namespace PyxeraConcurIntegrationConsole
 
             try
             {
-                // // ----- Fetch Headers -----
-                // List<Report> reports = await _expenseService.FetchHeaders();
-                // await _expenseService.SendToBc_ExpensesHeader(reports);
+                // ----- Fetch Headers -----
+                List<Report> reports = await _expenseService.FetchHeaders();
+                await _expenseService.SendToBc_ExpensesHeader(reports);
 
-                // // ----- Fetch Expense Allocation -----
-                // List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
-                // await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations);
+                // ----- Fetch Expense Allocation -----
+                List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
+                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations);
 
-                // // -- Fetch Expense Cash Advances ---
-                // List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
-                // await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances);
+                // -- Fetch Expense Cash Advances ---
+                List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
+                await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances);
 
-                // // ----- Fetch Entries -----
-                // List<Entry> entries = await _expenseService.FetchEntries();
-                // await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
+                // ----- Fetch Entries -----
+                List<Entry> entries = await _expenseService.FetchEntries();
+                await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
 
                 // // ----- Fetch Itemizations -----
                 List<Itemization> itemizations = await _expenseService.FetchItemizations();
-                //await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
 
                 // ----- Fetch Expense Allocation based on Itemization -----
                 List<ReportAllocation> expenseAllocationsItemization = await _expenseService.FetchExpenseAllocationsItemization(itemizations);
@@ -172,7 +172,7 @@ namespace PyxeraConcurIntegrationConsole
         {
             // Detect environment (default = Production)
             var environment = Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? "production";
-            environment = "production"; // Force production
+            //environment = "production"; // Force production
 
             Console.WriteLine($"Environment: {environment}");
 

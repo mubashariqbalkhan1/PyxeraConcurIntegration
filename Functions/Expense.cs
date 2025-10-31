@@ -85,7 +85,6 @@ namespace PyxeraConcurIntegrationConsole
             string url = _config["Concur:Expense_AllocationsItemization"];
             var reports = new List<ReportAllocation>();
             var concurTokenTime = DateTime.Now;
-            int count = 0;
 
             // Refresh Concur token every 25 minutes
             if ((DateTime.Now - concurTokenTime).TotalMinutes > 25)
@@ -101,11 +100,6 @@ namespace PyxeraConcurIntegrationConsole
                 if (itemSerialized?.Allocations?.Items?.Allocation != null)
                 {
                     reports.AddRange(itemSerialized.Allocations.Items.Allocation);
-                }
-                count++;
-                if (reports.Count() % 100 == 0)
-                {
-                    Console.WriteLine($"Fetched {reports.Count()} allocations so far from {count} itemizations...");
                 }
             }
             return reports;
