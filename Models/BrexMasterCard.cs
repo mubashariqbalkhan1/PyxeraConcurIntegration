@@ -52,13 +52,13 @@ namespace PyxeraConcurIntegrationConsole
             this.AllocationCustom6 = brexMasterCard.AllocationCustom6;
             this.BilledCreditCardAccDescr = brexMasterCard.BilledCreditCardAccountDescription;
             this.BilledCreditCardAccNo = brexMasterCard.BilledCreditCardAccountNumber;
-            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value.ToUniversalTime() : null;
+            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value : null;
             this.Department = brexMasterCard.Department;
             this.EmployeeDefCurrAlphaCode = brexMasterCard.EmployeeDefaultCurrencyAlphaCode;
             this.EmployeeFirstName = brexMasterCard.EmployeeFirstName;
             this.EmployeeId = brexMasterCard.EmployeeID;
             this.EmployeeLastName = brexMasterCard.EmployeeLastName;
-            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value.ToUniversalTime() : null;
+            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value : null;
             this.JnlPayeePaymentTypeName = brexMasterCard.JournalPayeePaymentTypeName;
             this.JnlPayerPaymentCodeName = brexMasterCard.JournalPayerPaymentCodeName;
             this.JournalAccountCode = brexMasterCard.JournalAccountCode;
@@ -72,14 +72,14 @@ namespace PyxeraConcurIntegrationConsole
             this.ReportEntryIsPersonalFlag = brexMasterCard.ReportEntryIsPersonalFlag;
             this.ReportEntryPaymentCode = brexMasterCard.ReportEntryPaymentCodeCode;
             this.ReportEntryPaymentCodeName = brexMasterCard.ReportEntryPaymentCodeName;
-            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value.ToUniversalTime() : null;
+            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value : null;
             this.ReportEntryVendorDescr = brexMasterCard.ReportEntryVendorDescription;
             this.ReportEntryVendorName = brexMasterCard.ReportEntryVendorName;
             this.ReportId = brexMasterCard.ReportID;
             this.ReportName = brexMasterCard.ReportName;
             this.ReportPaymentReimbType = brexMasterCard.ReportPaymentReimbursementType;
-            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value.ToUniversalTime() : null;
-            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value.ToUniversalTime() : null;
+            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value : null;
+            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value : null;
         }
         public int EntryNo { get; set; }
         public string Activity { get; set; }
@@ -129,13 +129,13 @@ namespace PyxeraConcurIntegrationConsole
             this.AllocationCustom6 = brexMasterCard.AllocationCustom6;
             this.BilledCreditCardAccDescr = brexMasterCard.BilledCreditCardAccountDescription;
             this.BilledCreditCardAccNo = brexMasterCard.BilledCreditCardAccountNumber;
-            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value.ToUniversalTime() : null;
+            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value : null;
             this.Department = brexMasterCard.Department;
             this.EmployeeDefCurrAlphaCode = brexMasterCard.EmployeeDefaultCurrencyAlphaCode;
             this.EmployeeFirstName = brexMasterCard.EmployeeFirstName;
             this.EmployeeId = brexMasterCard.EmployeeID;
             this.EmployeeLastName = brexMasterCard.EmployeeLastName;
-            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value.ToUniversalTime() : null;
+            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value : null;
             this.JnlPayeePaymentTypeName = brexMasterCard.JournalPayeePaymentTypeName;
             this.JnlPayerPaymentCodeName = brexMasterCard.JournalPayerPaymentCodeName;
             this.JournalAccountCode = brexMasterCard.JournalAccountCode;
@@ -149,14 +149,14 @@ namespace PyxeraConcurIntegrationConsole
             this.ReportEntryIsPersonalFlag = brexMasterCard.ReportEntryIsPersonalFlag;
             this.ReportEntryPaymentCode = brexMasterCard.ReportEntryPaymentCodeCode;
             this.ReportEntryPaymentCodeName = brexMasterCard.ReportEntryPaymentCodeName;
-            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value.ToUniversalTime() : null;
+            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value : null;
             this.ReportEntryVendorDescr = brexMasterCard.ReportEntryVendorDescription;
             this.ReportEntryVendorName = brexMasterCard.ReportEntryVendorName;
             this.ReportId = brexMasterCard.ReportID;
             this.ReportName = brexMasterCard.ReportName;
             this.ReportPaymentReimbType = brexMasterCard.ReportPaymentReimbursementType;
-            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value.ToUniversalTime() : null;
-            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value.ToUniversalTime() : null;
+            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value : null;
+            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value : null;
             this.accountString = brexMasterCard.AccountString;
             this.reportPurpose = brexMasterCard.ReportPurpose;
         }
@@ -210,13 +210,13 @@ namespace PyxeraConcurIntegrationConsole
             this.AllocationCustom6 = brexMasterCard.AllocationCustom6;
             this.BilledCreditCardAccDescr = brexMasterCard.BilledCreditCardAccountDescription;
             this.BilledCreditCardAccNo = brexMasterCard.BilledCreditCardAccountNumber;
-            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value.ToUniversalTime() : null;
+            this.Date = brexMasterCard.DATE != null ? brexMasterCard.DATE.Value : null;
             this.Department = brexMasterCard.Department;
             this.EmployeeDefCurrAlphaCode = brexMasterCard.EmployeeDefaultCurrencyAlphaCode;
             this.EmployeeFirstName = brexMasterCard.EmployeeFirstName;
             this.EmployeeId = brexMasterCard.EmployeeID;
             this.EmployeeLastName = brexMasterCard.EmployeeLastName;
-            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value.ToUniversalTime() : null;
+            this.EstimatedPaymentDate = brexMasterCard.EstimatedPaymentDate != null ? brexMasterCard.EstimatedPaymentDate.Value: null;
             this.JnlPayeePaymentTypeName = brexMasterCard.JournalPayeePaymentTypeName;
             this.JnlPayerPaymentCodeName = brexMasterCard.JournalPayerPaymentCodeName;
             this.JournalAccountCode = brexMasterCard.JournalAccountCode;
@@ -230,14 +230,14 @@ namespace PyxeraConcurIntegrationConsole
             this.ReportEntryIsPersonalFlag = brexMasterCard.ReportEntryIsPersonalFlag;
             this.ReportEntryPaymentCode = brexMasterCard.ReportEntryPaymentCodeCode;
             this.ReportEntryPaymentCodeName = brexMasterCard.ReportEntryPaymentCodeName;
-            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value.ToUniversalTime() : null;
+            this.ReportEntryTransactionDate = brexMasterCard.ReportEntryTransactionDate != null ? brexMasterCard.ReportEntryTransactionDate.Value : null;
             this.ReportEntryVendorDescr = brexMasterCard.ReportEntryVendorDescription;
             this.ReportEntryVendorName = brexMasterCard.ReportEntryVendorName;
             this.ReportId = brexMasterCard.ReportID;
             this.ReportName = brexMasterCard.ReportName;
             this.ReportPaymentReimbType = brexMasterCard.ReportPaymentReimbursementType;
-            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value.ToUniversalTime() : null;
-            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value.ToUniversalTime() : null;
+            this.ReportProcessingPaymentDate = brexMasterCard.ReportProcessingPaymentDate != null ? brexMasterCard.ReportProcessingPaymentDate.Value : null;
+            this.ReportSubmitDate = brexMasterCard.ReportSubmitDate != null ? brexMasterCard.ReportSubmitDate.Value : null;
             this.accountString = brexMasterCard.AccountString;
         }
         public int EntryNo { get; set; }

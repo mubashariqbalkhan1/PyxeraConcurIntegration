@@ -92,7 +92,7 @@ namespace PyxeraConcurIntegrationConsole
             expenseTypeName = itemization.ExpenseTypeName;
             spendCategoryCode = itemization.SpendCategoryCode;
             spendCategoryName = itemization.SpendCategoryName;
-            transactionDate = itemization.TransactionDate.ToUniversalTime();
+            transactionDate = itemization.TransactionDate;
             transactionAmount = (int)itemization.TransactionAmount;
             postedAmount = (int)itemization.PostedAmount;
             approvedAmount = (int)itemization.ApprovedAmount;

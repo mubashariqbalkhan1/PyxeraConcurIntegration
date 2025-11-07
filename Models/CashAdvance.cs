@@ -37,18 +37,18 @@ namespace PyxeraConcurIntegrationConsole
         public PostCashAdvance(CashAdvance cashAdvance)
         {
             this.BatchId = cashAdvance.BatchID;
-            this.BatchDate = cashAdvance.BatchDate != null ? cashAdvance.BatchDate.Value.ToUniversalTime() : null;
+            this.BatchDate = cashAdvance.BatchDate != null ? cashAdvance.BatchDate.Value : null;
             this.CashAdvCurrAlpCode = cashAdvance.CashAdvanceCurrencyAlphaCode;
             this.CashAdvCurrNumCode = cashAdvance.CashAdvanceCurrencyNumericCode.ToString();
             this.CashAdvReqCurrAlpCode = cashAdvance.CashAdvanceRequestCurrencyAlphaCode;
             this.CashAdvReqCurrNumCode = cashAdvance.CashAdvanceRequestCurrencyNumericCode.ToString();
             this.CashAdvanceExchangeRate = cashAdvance.CashAdvanceExchangeRate;
-            this.CashAdvanceIssuedDate = cashAdvance.CashAdvanceIssuedDate != null ? cashAdvance.CashAdvanceIssuedDate.Value.ToUniversalTime() : null;
+            this.CashAdvanceIssuedDate = cashAdvance.CashAdvanceIssuedDate != null ? cashAdvance.CashAdvanceIssuedDate.Value : null;
             this.CashAdvanceKey = cashAdvance.CashAdvanceKey;
             this.CashAdvancePaymentCodeName = cashAdvance.CashAdvancePaymentCodeName;
             this.CashAdvancePaymentMethod = cashAdvance.CashAdvancePaymentMethod;
             this.CashAdvanceRequestAmount = cashAdvance.CashAdvanceRequestAmount;
-            this.CashAdvanceRequestDate = cashAdvance.CashAdvanceRequestDate != null ? cashAdvance.CashAdvanceRequestDate.Value.ToUniversalTime() : null;
+            this.CashAdvanceRequestDate = cashAdvance.CashAdvanceRequestDate != null ? cashAdvance.CashAdvanceRequestDate.Value : null;
             this.CashAdvanceTransactionType = cashAdvance.CashAdvanceTransactionType;
             this.EmployeeFirstName = cashAdvance.EmployeeFirstName;
             this.EmployeeID = cashAdvance.EmployeeID;
