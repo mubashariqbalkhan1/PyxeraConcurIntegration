@@ -32,7 +32,8 @@ namespace PyxeraConcurIntegrationConsole
         public string ExpenseTypeName { get; set; }
         public string SpendCategoryCode { get; set; }
         public string SpendCategoryName { get; set; }
-        public DateTime TransactionDate { get; set; }
+        [JsonConverter(typeof(NullReplacementDateConverter))]
+        public DateTimeOffset? TransactionDate { get; set; }
         public decimal TransactionAmount { get; set; }
         public decimal PostedAmount { get; set; }
         public decimal ApprovedAmount { get; set; }
@@ -127,7 +128,7 @@ namespace PyxeraConcurIntegrationConsole
         public string expenseTypeName { get; set; }
         public string spendCategoryCode { get; set; }
         public string spendCategoryName { get; set; }
-        public DateTime transactionDate { get; set; }
+        public DateTimeOffset? transactionDate { get; set; }
         public int transactionAmount { get; set; }
         public int postedAmount { get; set; }
         public int approvedAmount { get; set; }
