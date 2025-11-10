@@ -96,9 +96,9 @@ namespace PyxeraConcurIntegrationConsole
             transactionDate = new DateTimeOffset(
                                 itemization.TransactionDate.Year, itemization.TransactionDate.Month, itemization.TransactionDate.Day,
                                 itemization.TransactionDate.Hour, itemization.TransactionDate.Minute, itemization.TransactionDate.Second, TimeSpan.Zero);
-            transactionAmount = (int)itemization.TransactionAmount;
-            postedAmount = (int)itemization.PostedAmount;
-            approvedAmount = (int)itemization.ApprovedAmount;
+            transactionAmount = itemization.TransactionAmount;
+            postedAmount = itemization.PostedAmount;
+            approvedAmount = itemization.ApprovedAmount;
             location = itemization.LocationSubdivision;
             locationID = itemization.LocationID;
             locationCountry = itemization.LocationCountry;
@@ -131,9 +131,9 @@ namespace PyxeraConcurIntegrationConsole
         public string spendCategoryCode { get; set; }
         public string spendCategoryName { get; set; }
         public DateTimeOffset? transactionDate { get; set; }
-        public int transactionAmount { get; set; }
-        public int postedAmount { get; set; }
-        public int approvedAmount { get; set; }
+        public decimal transactionAmount { get; set; }
+        public decimal postedAmount { get; set; }
+        public decimal approvedAmount { get; set; }
         public string location { get; set; }
         public string locationID { get; set; }
         public string locationCountry { get; set; }
