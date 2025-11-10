@@ -33,7 +33,7 @@ namespace PyxeraConcurIntegrationConsole
         public string SpendCategoryCode { get; set; }
         public string SpendCategoryName { get; set; }
         [JsonConverter(typeof(NullReplacementDateConverter))]
-        public DateTimeOffset? TransactionDate { get; set; }
+        public DateTimeOffset TransactionDate { get; set; }
         public decimal TransactionAmount { get; set; }
         public decimal PostedAmount { get; set; }
         public decimal ApprovedAmount { get; set; }
@@ -74,7 +74,7 @@ namespace PyxeraConcurIntegrationConsole
         [JsonConverter(typeof(NullReplacementConverter))]
         public string? OrgUnit6 { get; set; }
 
-        
+
     }
 
     public class BcExpenseHeaderItemization
@@ -93,7 +93,9 @@ namespace PyxeraConcurIntegrationConsole
             expenseTypeName = itemization.ExpenseTypeName;
             spendCategoryCode = itemization.SpendCategoryCode;
             spendCategoryName = itemization.SpendCategoryName;
-            transactionDate = itemization.TransactionDate;
+            transactionDate = new DateTimeOffset(
+                                itemization.TransactionDate.Year, itemization.TransactionDate.Month, itemization.TransactionDate.Day,
+                                itemization.TransactionDate.Hour, itemization.TransactionDate.Minute, itemization.TransactionDate.Second, TimeSpan.Zero);
             transactionAmount = (int)itemization.TransactionAmount;
             postedAmount = (int)itemization.PostedAmount;
             approvedAmount = (int)itemization.ApprovedAmount;
