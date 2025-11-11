@@ -152,8 +152,8 @@ namespace PyxeraConcurIntegrationConsole
         [JsonConverter(typeof(NullReplacementDateConverter))]
         public DateTimeOffset? UserCreationDate { get; set; }
 
-        [JsonConverter(typeof(NullReplacementDateConverter))]
-        public DateTimeOffset? InvoiceDate { get; set; }
+        //[JsonConverter(typeof(NullReplacementDateConverter))]
+        public DateTimeOffset InvoiceDate { get; set; }
 
         [JsonConverter(typeof(NullReplacementDateConverter))]
         public DateTimeOffset? PaymentDueDate { get; set; }
@@ -382,7 +382,11 @@ namespace PyxeraConcurIntegrationConsole
             id = pr.ID;
             invoiceAmount = pr.InvoiceAmount;
             invoiceConfirmed = pr.IsInvoiceConfirmed;
-            invoiceDate = pr.InvoiceDate;
+            invoiceDate = new DateTimeOffset(
+                                pr.InvoiceDate.Year, pr.InvoiceDate.Month, pr.InvoiceDate.Day,
+                                pr.InvoiceDate.Hour, pr.InvoiceDate.Minute, pr.InvoiceDate.Second, TimeSpan.Zero);
+            Console.WriteLine("Invoice Date: " + invoiceDate.ToString());
+            Console.WriteLine("Original Invoice Date: " + pr.InvoiceDate.ToString());
             invoiceNumber = pr.InvoiceNumber;
             lastSubmitDate = pr.LastSubmitDate;
             ledgerCode = pr.LedgerCode;
