@@ -153,7 +153,7 @@ namespace PyxeraConcurIntegrationConsole
         public DateTimeOffset? UserCreationDate { get; set; }
 
         //[JsonConverter(typeof(NullReplacementDateConverter))]
-        public DateTimeOffset InvoiceDate { get; set; }
+        public DateTime InvoiceDate { get; set; }
 
         [JsonConverter(typeof(NullReplacementDateConverter))]
         public DateTimeOffset? PaymentDueDate { get; set; }
