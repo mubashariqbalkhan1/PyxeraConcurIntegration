@@ -382,11 +382,7 @@ namespace PyxeraConcurIntegrationConsole
             id = pr.ID;
             invoiceAmount = pr.InvoiceAmount;
             invoiceConfirmed = pr.IsInvoiceConfirmed;
-            invoiceDate = new DateTimeOffset(
-                                pr.InvoiceDate.Year, pr.InvoiceDate.Month, pr.InvoiceDate.Day,
-                                pr.InvoiceDate.Hour, pr.InvoiceDate.Minute, pr.InvoiceDate.Second, TimeSpan.Zero);
-            Console.WriteLine("Invoice Date: " + invoiceDate.ToString());
-            Console.WriteLine("Original Invoice Date: " + pr.InvoiceDate.ToString());
+            invoiceDate = new DateOnly(pr.InvoiceDate.Year, pr.InvoiceDate.Month, pr.InvoiceDate.Day);
             invoiceNumber = pr.InvoiceNumber;
             lastSubmitDate = pr.LastSubmitDate;
             ledgerCode = pr.LedgerCode;
@@ -423,7 +419,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 else
                 {
-                    postingPeriod = null; 
+                    postingPeriod = null;
                 }
             }
         }
@@ -444,7 +440,7 @@ namespace PyxeraConcurIntegrationConsole
         public string? id { get; set; }
         public decimal invoiceAmount { get; set; }
         public bool invoiceConfirmed { get; set; }
-        public DateTimeOffset? invoiceDate { get; set; }
+        public DateOnly? invoiceDate { get; set; }
         public string invoiceNumber { get; set; }
         public DateTimeOffset? lastSubmitDate { get; set; }
         public string? ledgerCode { get; set; }

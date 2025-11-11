@@ -44,7 +44,6 @@ namespace PyxeraConcurIntegrationConsole
                 items.AddRange(serialized.PaymentRequestDigests.PaymentRequestDigest);
             }
             Console.WriteLine($"Fetched {items.Count} items so far.");
-            items = items.Where(x => x.ID == "0011C9ECCEA740AA9484").ToList();
             foreach (var item in items)
             {
                 var pr = await FetchPaymentRequest(accessToken, item.ID);
