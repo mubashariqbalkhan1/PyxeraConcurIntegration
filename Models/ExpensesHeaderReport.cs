@@ -20,6 +20,8 @@ namespace PyxeraConcurIntegrationConsole
     }
     public class ReportsHeader
     {
+        [JsonProperty("Report")]
+        [JsonConverter(typeof(SingleOrArrayConverter<Report>))]
         public List<Report> Report { get; set; }
     }
     public class Report : Customs
@@ -33,9 +35,9 @@ namespace PyxeraConcurIntegrationConsole
         [JsonConverter(typeof(NullReplacementConverter))]
         public string CountrySubdivision { get; set; }
         [JsonConverter(typeof(NullReplacementDateConverter))]
-        public DateTimeOffset CreateDate { get; set; }
+        public DateTimeOffset? CreateDate { get; set; }
         [JsonConverter(typeof(NullReplacementDateConverter))]
-        public DateTimeOffset SubmitDate { get; set; }
+        public DateTimeOffset? SubmitDate { get; set; }
         [JsonConverter(typeof(NullReplacementDateConverter))]
         public DateTimeOffset? ProcessingPaymentDate { get; set; }
         [JsonConverter(typeof(NullReplacementDateConverter))]
@@ -108,8 +110,8 @@ namespace PyxeraConcurIntegrationConsole
             totalClaimedAmount = Decimal.Parse(report.TotalClaimedAmount);
             totalApprovedAmount = Decimal.Parse(report.TotalApprovedAmount);
             employeeId = report.Custom10.Value;
-            submitDate = DateOnly.FromDateTime(report.SubmitDate.DateTime);
-            createDate = DateOnly.FromDateTime(report.CreateDate.DateTime);
+            submitDate = report.SubmitDate.HasValue ? DateOnly.FromDateTime(report.SubmitDate.Value.DateTime) : null;
+            createDate = report.CreateDate.HasValue ? DateOnly.FromDateTime(report.CreateDate.Value.DateTime) : null;
             if (string.IsNullOrEmpty(report.Custom7.Value))
             {
                 postingPeriod = null;
