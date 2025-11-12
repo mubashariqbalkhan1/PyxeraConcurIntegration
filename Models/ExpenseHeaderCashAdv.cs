@@ -136,12 +136,12 @@ namespace PyxeraConcurIntegrationConsole
             ExchangeRate = item.ExchangeRate != null ? item.ExchangeRate.Value : 0;
             ExchangeRateOp = item.ExchangeRate != null ? item.ExchangeRate.Operation : null;
             hasReciept = item.HasReceipts;
-            IssuedDate = item.IssuedDate != DateTime.MinValue ? item.IssuedDate : (DateTimeOffset?)null;
+            IssuedDate = item.IssuedDate != DateTime.MinValue ? DateOnly.FromDateTime(item.IssuedDate) : (DateOnly?)null;
             Name = item.Name;
             PaymentMethod = item.PaymentType != null ? item.PaymentType.PaymentCode : null;
             PaymentTypeDesc = item.PaymentType != null ? item.PaymentType.Description : null;
             ReimbursementCurrency = item.ReimbursementCurrency;
-            RequestDate = item.RequestDate != DateTime.MinValue ? item.RequestDate : (DateTimeOffset?)null;
+            RequestDate = item.RequestDate != DateTime.MinValue ? DateOnly.FromDateTime(item.RequestDate) : (DateOnly?)null;
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -179,7 +179,7 @@ namespace PyxeraConcurIntegrationConsole
         public bool hasReciept { get; set; }
 
         [JsonPropertyName("issuedDate")]
-        public DateTimeOffset? IssuedDate { get; set; }
+        public DateOnly? IssuedDate { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
@@ -194,7 +194,7 @@ namespace PyxeraConcurIntegrationConsole
         public string ReimbursementCurrency { get; set; }
 
         [JsonPropertyName("requestDate")]
-        public DateTimeOffset? RequestDate { get; set; }
+        public DateOnly? RequestDate { get; set; }
     }
 
 }

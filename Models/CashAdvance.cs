@@ -37,18 +37,18 @@ namespace PyxeraConcurIntegrationConsole
         public PostCashAdvance(CashAdvance cashAdvance)
         {
             this.BatchId = cashAdvance.BatchID;
-            this.BatchDate = cashAdvance.BatchDate != null ? cashAdvance.BatchDate.Value : null;
+            this.BatchDate = cashAdvance.BatchDate != null ? DateOnly.FromDateTime(cashAdvance.BatchDate.Value) : null;
             this.CashAdvCurrAlpCode = cashAdvance.CashAdvanceCurrencyAlphaCode;
             this.CashAdvCurrNumCode = cashAdvance.CashAdvanceCurrencyNumericCode.ToString();
             this.CashAdvReqCurrAlpCode = cashAdvance.CashAdvanceRequestCurrencyAlphaCode;
             this.CashAdvReqCurrNumCode = cashAdvance.CashAdvanceRequestCurrencyNumericCode.ToString();
             this.CashAdvanceExchangeRate = cashAdvance.CashAdvanceExchangeRate;
-            this.CashAdvanceIssuedDate = cashAdvance.CashAdvanceIssuedDate != null ? cashAdvance.CashAdvanceIssuedDate.Value : null;
+            this.CashAdvanceIssuedDate = cashAdvance.CashAdvanceIssuedDate != null ? DateOnly.FromDateTime(cashAdvance.CashAdvanceIssuedDate.Value) : null;
             this.CashAdvanceKey = cashAdvance.CashAdvanceKey;
             this.CashAdvancePaymentCodeName = cashAdvance.CashAdvancePaymentCodeName;
             this.CashAdvancePaymentMethod = cashAdvance.CashAdvancePaymentMethod;
             this.CashAdvanceRequestAmount = cashAdvance.CashAdvanceRequestAmount;
-            this.CashAdvanceRequestDate = cashAdvance.CashAdvanceRequestDate != null ? cashAdvance.CashAdvanceRequestDate.Value : null;
+            this.CashAdvanceRequestDate = cashAdvance.CashAdvanceRequestDate != null ? DateOnly.FromDateTime(cashAdvance.CashAdvanceRequestDate.Value) : null;
             this.CashAdvanceTransactionType = cashAdvance.CashAdvanceTransactionType;
             this.EmployeeFirstName = cashAdvance.EmployeeFirstName;
             this.EmployeeID = cashAdvance.EmployeeID;
@@ -62,18 +62,18 @@ namespace PyxeraConcurIntegrationConsole
             this.JournalDebitOrCredit = cashAdvance.JournalDebitOrCredit;
         }
         public int BatchId { get; set; }
-        public DateTimeOffset? BatchDate { get; set; }
+        public DateOnly? BatchDate { get; set; }
         public string CashAdvCurrAlpCode { get; set; }
         public string CashAdvCurrNumCode { get; set; }
         public string CashAdvReqCurrAlpCode { get; set; }
         public string CashAdvReqCurrNumCode { get; set; }
         public decimal CashAdvanceExchangeRate { get; set; }
-        public DateTimeOffset? CashAdvanceIssuedDate { get; set; }
+        public DateOnly? CashAdvanceIssuedDate { get; set; }
         public int CashAdvanceKey { get; set; }
         public string CashAdvancePaymentCodeName { get; set; }
         public int CashAdvancePaymentMethod { get; set; }
         public decimal CashAdvanceRequestAmount { get; set; }
-        public DateTimeOffset? CashAdvanceRequestDate { get; set; }
+        public DateOnly? CashAdvanceRequestDate { get; set; }
         public int CashAdvanceTransactionType { get; set; }
         public string EmployeeFirstName { get; set; }
         public string EmployeeID { get; set; }

@@ -96,8 +96,8 @@ namespace PyxeraConcurIntegrationConsole
             name = report.Name;
             total = Decimal.Parse(report.Total);
             currencyCode = report.CurrencyCode;
-            processingPaymentDate = report.ProcessingPaymentDate;
-            paidDate = report.PaidDate;
+            processingPaymentDate = report.ProcessingPaymentDate.HasValue ? DateOnly.FromDateTime(report.ProcessingPaymentDate.Value.DateTime) : null;
+            paidDate = report.PaidDate.HasValue ? DateOnly.FromDateTime(report.PaidDate.Value.DateTime) : null;
             approvalStatusName = report.ApprovalStatusName;
             approvalStatusCode = report.ApprovalStatusCode;
             paymentStatusName = report.PaymentStatusName;
@@ -108,8 +108,8 @@ namespace PyxeraConcurIntegrationConsole
             totalClaimedAmount = Decimal.Parse(report.TotalClaimedAmount);
             totalApprovedAmount = Decimal.Parse(report.TotalApprovedAmount);
             employeeId = report.Custom10.Value;
-            submitDate = report.SubmitDate;
-            createDate = report.CreateDate;
+            submitDate = DateOnly.FromDateTime(report.SubmitDate.DateTime);
+            createDate = DateOnly.FromDateTime(report.CreateDate.DateTime);
             if (string.IsNullOrEmpty(report.Custom7.Value))
             {
                 postingPeriod = null;
@@ -119,7 +119,7 @@ namespace PyxeraConcurIntegrationConsole
                 if (DateTime.TryParseExact(report.Custom7.Code, "MMddyyyy",
                     CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime pd))
                 {
-                    postingPeriod = pd;
+                    postingPeriod = DateOnly.FromDateTime(pd);
                 }
                 else
                 {
@@ -133,8 +133,8 @@ namespace PyxeraConcurIntegrationConsole
         public string name { get; set; }
         public decimal total { get; set; }
         public string currencyCode { get; set; }
-        public DateTimeOffset? processingPaymentDate { get; set; }
-        public DateTimeOffset? paidDate { get; set; }
+        public DateOnly? processingPaymentDate { get; set; }
+        public DateOnly? paidDate { get; set; }
         public string approvalStatusName { get; set; }
         public string approvalStatusCode { get; set; }
         public string paymentStatusName { get; set; }
@@ -145,9 +145,9 @@ namespace PyxeraConcurIntegrationConsole
         public decimal totalClaimedAmount { get; set; }
         public decimal totalApprovedAmount { get; set; }
         public string employeeId { get; set; }
-        public DateTimeOffset? submitDate { get; set; }
-        public DateTimeOffset? createDate { get; set; }
-        public DateTimeOffset? postingPeriod { get; set; }
+        public DateOnly? submitDate { get; set; }
+        public DateOnly? createDate { get; set; }
+        public DateOnly? postingPeriod { get; set; }
     }
 
 }

@@ -93,9 +93,7 @@ namespace PyxeraConcurIntegrationConsole
             expenseTypeName = itemization.ExpenseTypeName;
             spendCategoryCode = itemization.SpendCategoryCode;
             spendCategoryName = itemization.SpendCategoryName;
-            transactionDate = new DateTimeOffset(
-                                itemization.TransactionDate.Year, itemization.TransactionDate.Month, itemization.TransactionDate.Day,
-                                itemization.TransactionDate.Hour, itemization.TransactionDate.Minute, itemization.TransactionDate.Second, TimeSpan.Zero);
+            transactionDate = DateOnly.FromDateTime(itemization.TransactionDate.DateTime);
             transactionAmount = itemization.TransactionAmount;
             postedAmount = itemization.PostedAmount;
             approvedAmount = itemization.ApprovedAmount;
@@ -130,7 +128,7 @@ namespace PyxeraConcurIntegrationConsole
         public string expenseTypeName { get; set; }
         public string spendCategoryCode { get; set; }
         public string spendCategoryName { get; set; }
-        public DateTimeOffset? transactionDate { get; set; }
+        public DateOnly? transactionDate { get; set; }
         public decimal transactionAmount { get; set; }
         public decimal postedAmount { get; set; }
         public decimal approvedAmount { get; set; }

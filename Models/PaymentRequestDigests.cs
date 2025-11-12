@@ -376,15 +376,15 @@ namespace PyxeraConcurIntegrationConsole
             currencyCode = pr.CurrencyCode;
             description = pr.Description;
             employeeName = pr.EmployeeName;
-            extractDate = pr.ExtractDate;
-            firstApprovalDate = pr.FirstApprovalDate;
-            firstSubmitDate = pr.FirstSubmitDate;
+            extractDate = pr.ExtractDate != null ? DateOnly.FromDateTime(pr.ExtractDate.Value.DateTime) : (DateOnly?)null;
+            firstApprovalDate = pr.FirstApprovalDate != null ? DateOnly.FromDateTime(pr.FirstApprovalDate.Value.DateTime) : (DateOnly?)null;
+            firstSubmitDate = pr.FirstSubmitDate != null ? DateOnly.FromDateTime(pr.FirstSubmitDate.Value.DateTime) : (DateOnly?)null;
             id = pr.ID;
             invoiceAmount = pr.InvoiceAmount;
             invoiceConfirmed = pr.IsInvoiceConfirmed;
             invoiceDate = new DateOnly(pr.InvoiceDate.Year, pr.InvoiceDate.Month, pr.InvoiceDate.Day);
             invoiceNumber = pr.InvoiceNumber;
-            lastSubmitDate = pr.LastSubmitDate;
+            lastSubmitDate = pr.LastSubmitDate != null ? DateOnly.FromDateTime(pr.LastSubmitDate.Value.DateTime) : (DateOnly?)null;
             ledgerCode = pr.LedgerCode;
             lineTotalAmount = pr.LineItemTotalAmount;
             lineVATAmount = pr.LineItemVatAmount;
@@ -392,15 +392,15 @@ namespace PyxeraConcurIntegrationConsole
             notesToVendor = pr.NotesToVendor;
             poNumber = !string.IsNullOrEmpty(pr.PoNumber) ? pr.PoNumber : "";
             paidAmount = pr.PaidAmount;
-            paidDate = pr.PaidDate;
-            paymentDueDate = pr.PaymentDueDate;
+            paidDate = pr.PaidDate != null ? DateOnly.FromDateTime(pr.PaidDate.Value.DateTime) : (DateOnly?)null;
+            paymentDueDate = pr.PaymentDueDate != null ? DateOnly.FromDateTime(pr.PaymentDueDate.Value.DateTime) : (DateOnly?)null;
             paymentMethod = pr.PaymentMethod;
             paymentStatus = pr.PaymentStatus;
             paymentTermsDays = pr.PaymentTermsDays;
             postalCode = pr.VendorRemitAddress?.PostalCode;
             state = pr.VendorRemitAddress?.State;
             totalApprovedAmount = pr.TotalApprovedAmount;
-            userCreationDate = pr.UserCreationDate;
+            userCreationDate = pr.UserCreationDate != null ? DateOnly.FromDateTime(pr.UserCreationDate.Value.DateTime) : (DateOnly?)null;
             vendCountryCode = pr.VendorRemitAddress?.CountryCode;
             vendorCode = pr.VendorRemitAddress?.VendorCode;
             vendorName = pr.VendorRemitAddress?.Name;
@@ -434,15 +434,15 @@ namespace PyxeraConcurIntegrationConsole
         public string? currencyCode { get; set; }
         public string? description { get; set; }
         public string? employeeName { get; set; }
-        public DateTimeOffset? extractDate { get; set; }
-        public DateTimeOffset? firstApprovalDate { get; set; }
-        public DateTimeOffset? firstSubmitDate { get; set; }
+        public DateOnly? extractDate { get; set; }
+        public DateOnly? firstApprovalDate { get; set; }
+        public DateOnly? firstSubmitDate { get; set; }
         public string? id { get; set; }
         public decimal invoiceAmount { get; set; }
         public bool invoiceConfirmed { get; set; }
         public DateOnly? invoiceDate { get; set; }
         public string invoiceNumber { get; set; }
-        public DateTimeOffset? lastSubmitDate { get; set; }
+        public DateOnly? lastSubmitDate { get; set; }
         public string? ledgerCode { get; set; }
         public decimal lineTotalAmount { get; set; }
         public decimal lineVATAmount { get; set; }
@@ -450,15 +450,15 @@ namespace PyxeraConcurIntegrationConsole
         public string? notesToVendor { get; set; }
         public string? poNumber { get; set; }
         public decimal paidAmount { get; set; }
-        public DateTimeOffset? paidDate { get; set; }
-        public DateTimeOffset? paymentDueDate { get; set; }
+        public DateOnly? paidDate { get; set; }
+        public DateOnly? paymentDueDate { get; set; }
         public string? paymentMethod { get; set; }
         public string? paymentStatus { get; set; }
         public int paymentTermsDays { get; set; }
         public string? postalCode { get; set; }
         public string? state { get; set; }
         public decimal totalApprovedAmount { get; set; }
-        public DateTimeOffset? userCreationDate { get; set; }
+        public DateOnly? userCreationDate { get; set; }
         public string? vendCountryCode { get; set; }
         public string? vendorCode { get; set; }
         public string? vendorName { get; set; }
