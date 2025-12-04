@@ -266,10 +266,29 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     updated++;
                 }
-                //Console.WriteLine($"Processed {success + failure} of {total} records.");
+            }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.id.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Header_API"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"ExpensesHeader: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"ExpensesHeader: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
 
         public async Task SendToBc_ExpensesHeaderEntries(List<Entry> concurExpenses)
@@ -344,8 +363,28 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.id.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Entries_API"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
+            }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
         public async Task SendToBc_ExpensesHeaderCashAdvance(List<ExpenseCashAdvance> concurExpenses)
         {
@@ -419,8 +458,28 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.CashAdvanceId.ToLower() == bc.CashAdvanceId.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Expense_CashAdv_API"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
+            }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
         public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses)
         {
@@ -494,8 +553,28 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.Id.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Expense_Alloc_API"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
+            }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
 
         public async Task SendToBc_ExpensesHeaderItemization(List<Itemization> concurExpenses)
@@ -570,8 +649,28 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.id.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Itemization_API"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
+            }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderItemization: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BcExpenseHeaderItemization: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
 
         }
     }

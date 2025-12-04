@@ -258,7 +258,28 @@ namespace PyxeraConcurIntegrationConsole
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"📌{calledFrom}: Sent {total} records → Success: {success}, Failure: {failure}");
         }
+        public async Task<string> DeleteDataFromBcSingle(string requestUrl, string bcToken, string id)
+        {
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Delete, requestUrl);
+                request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bcToken);
 
+                var response = await _httpClient.SendAsync(request);
+                var content = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return $"Error: {response.StatusCode}, Message: {content}";
+                }
+                return "success";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}, systemId: {id}");
+                return ex.Message;
+            }
+        }
 
     }
     public class Customs

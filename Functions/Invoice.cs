@@ -134,8 +134,28 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.id.ToLower())).ToList();
+            int deleted = 0;
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Invoice_Header"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
+            }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
 
         }
 
@@ -172,7 +192,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 list.AddRange(parsedBcData.value);
             } while (hasData);
-            int total = 0, success = 0, failure = 0, added = 0, updated = 0;
+            int total = 0, success = 0, failure = 0, added = 0, updated = 0, deleted = 0;
             total = concurExpenses.Sum(pr => pr.LineItems?.LineItem.Count ?? 0);
             List<string> errors = new List<string>();
             var linesToSend = new List<BC_InvoiceLineItem>();
@@ -228,7 +248,25 @@ namespace PyxeraConcurIntegrationConsole
                             }
                             updated++;
                         }
-                        //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
+                    }
+                    // Delete entries that are in BC but not in Concur
+                    //find the data which is present in BC but not in concur and delete from BC
+                    var toDelete = list.Where(bc => bc.lineItemId.ToLower() == bc.lineItemId.ToLower() && bc.paymentRequestId.ToLower() == pr.ID.ToLower()).ToList();
+                    foreach (var item in toDelete)
+                    {
+                        var url = _config["BusinessCentral:BC_Invoice_Header"];
+                        url = url + $"(" + item.SystemId + ")";
+                        var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                        if (result == "success")
+                        {
+                            success++;
+                        }
+                        else
+                        {
+                            failure++;
+                            errors.Add(result);
+                        }
+                        deleted++;
                     }
                 }
                 catch
@@ -238,7 +276,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
 
         public async Task SendToBc_InvoiceLineAllocations(List<PaymentRequest> concurExpenses)
@@ -274,7 +312,7 @@ namespace PyxeraConcurIntegrationConsole
                 }
                 list.AddRange(parsedBcData.value);
             } while (hasData);
-            int total = 0, success = 0, failure = 0, added = 0, updated = 0;
+            int total = 0, success = 0, failure = 0, added = 0, updated = 0, deleted = 0;
             total = concurExpenses.Sum(pr => pr.LineItems?.LineItem.Sum(li => li.Allocations?.Allocation.Count ?? 0) ?? 0);
             List<string> errors = new List<string>();
             var linesToSend = new List<BC_Invoice_Allocations>();
@@ -327,10 +365,29 @@ namespace PyxeraConcurIntegrationConsole
                         }
                         //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
                     }
+                    // Delete entries that are in BC but not in Concur
+                    //find the data which is present in BC but not in concur and delete from BC
+                    var toDelete = list.Where(bc => bc.lineItemReference.ToLower() == li.LineItemId.ToLower() && bc.paymentRequestId.ToLower() == item.ID.ToLower()).ToList();
+                    foreach (var item1 in toDelete)
+                    {
+                        var url = _config["BusinessCentral:BC_Invoice_Header"];
+                        url = url + $"(" + item1.SystemId + ")";
+                        var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item1.SystemId);
+                        if (result == "success")
+                        {
+                            success++;
+                        }
+                        else
+                        {
+                            failure++;
+                            errors.Add(result);
+                        }
+                        deleted++;
+                    }
                 }
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}");
+            Console.WriteLine($"BC_Invoice_Header: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
     }
 }
