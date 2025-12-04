@@ -174,6 +174,7 @@ namespace PyxeraConcurIntegrationConsole
             activityName = entry.Custom5.Value;
             locationCode = entry.Custom6.Code;
             locationName = entry.Custom6.Value;
+            personalAccountCode = entry.Custom8.Value;
         }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string SystemId { get; set; }
@@ -212,6 +213,7 @@ namespace PyxeraConcurIntegrationConsole
         public string activityName { get; set; }
         public string locationCode { get; set; }
         public string locationName { get; set; }
+        public string personalAccountCode { get; set; }
     }
 
 }
