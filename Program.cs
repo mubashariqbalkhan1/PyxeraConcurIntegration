@@ -55,7 +55,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 // // // ----- Fetch Itemizations -----
                 List<Itemization> itemizations = await _expenseService.FetchItemizations();
-                //await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
                 Console.WriteLine($"Completed 5 of 9 jobs.");
 
                 // // ----- Fetch Expense Allocation based on Itemization -----
