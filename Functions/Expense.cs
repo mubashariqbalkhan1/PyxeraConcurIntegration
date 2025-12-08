@@ -479,7 +479,7 @@ namespace PyxeraConcurIntegrationConsole
                 deleted++;
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
+            Console.WriteLine($"ExpensesHeaderCashAdvance: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
         public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses)
         {
@@ -574,7 +574,7 @@ namespace PyxeraConcurIntegrationConsole
                 deleted++;
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
-            Console.WriteLine($"BcExpenseHeaderEntry: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
+            Console.WriteLine($"ExpensesHeaderAllocations: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
 
         public async Task SendToBc_ExpensesHeaderItemization(List<Itemization> concurExpenses)
