@@ -251,10 +251,10 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     // Delete entries that are in BC but not in Concur
                     //find the data which is present in BC but not in concur and delete from BC
-                    var toDelete = list.Where(bc => bc.lineItemId.ToLower() == bc.lineItemId.ToLower() && bc.paymentRequestId.ToLower() == pr.ID.ToLower()).ToList();
+                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemId.ToLower() == bc.lineItemId.ToLower() && l.paymentRequestId.ToLower() == pr.ID.ToLower())).ToList();
                     foreach (var item in toDelete)
                     {
-                        var url = _config["BusinessCentral:BC_Invoice_Header"];
+                        var url = _config["BusinessCentral:BC_Invoice_Lines"];
                         url = url + $"(" + item.SystemId + ")";
                         var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
                         if (result == "success")
@@ -367,10 +367,10 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     // Delete entries that are in BC but not in Concur
                     //find the data which is present in BC but not in concur and delete from BC
-                    var toDelete = list.Where(bc => bc.lineItemReference.ToLower() == li.LineItemId.ToLower() && bc.paymentRequestId.ToLower() == item.ID.ToLower()).ToList();
+                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemReference.ToLower() == bc.lineItemReference.ToLower() && l.paymentRequestId.ToLower() == bc.paymentRequestId.ToLower())).ToList();
                     foreach (var item1 in toDelete)
                     {
-                        var url = _config["BusinessCentral:BC_Invoice_Header"];
+                        var url = _config["BusinessCentral:BC_Invoice_Allocations"];
                         url = url + $"(" + item1.SystemId + ")";
                         var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item1.SystemId);
                         if (result == "success")

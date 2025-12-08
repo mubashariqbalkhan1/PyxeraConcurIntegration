@@ -36,32 +36,41 @@ namespace PyxeraConcurIntegrationConsole
                 // ----- Fetch Headers -----
                 List<Report> reports = await _expenseService.FetchHeaders();
                 await _expenseService.SendToBc_ExpensesHeader(reports);
+                Console.WriteLine($"Completed 1 of 9 jobs.");
 
-                // ----- Fetch Expense Allocation -----
+                // // ----- Fetch Expense Allocation -----
                 List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
                 await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations);
+                Console.WriteLine($"Completed 2 of 9 jobs.");
 
-                // -- Fetch Expense Cash Advances ---
+                // // -- Fetch Expense Cash Advances ---
                 List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
                 await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances);
+                Console.WriteLine($"Completed 3 of 9 jobs.");
 
-                // ----- Fetch Entries -----
+                // // ----- Fetch Entries -----
                 List<Entry> entries = await _expenseService.FetchEntries();
                 await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
+                Console.WriteLine($"Completed 4 of 9 jobs.");
 
-                // // ----- Fetch Itemizations -----
+                // // // ----- Fetch Itemizations -----
                 List<Itemization> itemizations = await _expenseService.FetchItemizations();
-                await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                //await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
+                Console.WriteLine($"Completed 5 of 9 jobs.");
 
-                // ----- Fetch Expense Allocation based on Itemization -----
+                // // ----- Fetch Expense Allocation based on Itemization -----
                 List<ReportAllocation> expenseAllocationsItemization = await _expenseService.FetchExpenseAllocationsItemization(itemizations);
                 await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocationsItemization);
+                Console.WriteLine($"Completed 6 of 9 jobs.");
 
                 // // ----- Fetch Invoice Digests -----
                 List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
                 await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
+                Console.WriteLine($"Completed 7 of 9 jobs.");
                 await _invoiceService.SendToBc_InvoiceLines(invoiceDigests);
+                Console.WriteLine($"Completed 8 of 9 jobs.");
                 await _invoiceService.SendToBc_InvoiceLineAllocations(invoiceDigests);
+                Console.WriteLine($"Completed 9 of 9 jobs.");
 
                 // ----- Fetch Payment Jobs -----
                 var stateManager = new StateManager("state.json");
