@@ -481,11 +481,14 @@ namespace PyxeraConcurIntegrationConsole
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"ExpensesHeaderCashAdvance: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
-        public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses)
+        public async Task SendToBc_ExpensesHeaderAllocations(List<ReportAllocation> concurExpenses, List<ReportAllocation> concurAllocations)
         {
             Console.WriteLine($"Starting to send {concurExpenses.Count} Expense Header Allocations to Business Central...");
             bool hasData = true;
             var list = new List<BcExpenseHeaderAllocation>();
+            var combineIds = concurExpenses.Select(e => e.ID).ToList();
+            combineIds.AddRange(concurAllocations.Select(a => a.ID).ToList());
+            combineIds = combineIds.Distinct().ToList();
             var requestUrl = _config["BusinessCentral:BC_Expense_Alloc_API"];
             var bcTokenTime = DateTime.Now;
             var bcToken = await _commonFunctions.GetBusinessCentralTokenAsync();
@@ -555,7 +558,7 @@ namespace PyxeraConcurIntegrationConsole
             }
             // Delete entries that are in BC but not in Concur
             //find the data which is present in BC but not in concur and delete from BC
-            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.ID.ToLower() == bc.Id.ToLower())).ToList();
+            var toDelete = list.Where(bc => !combineIds.Any(ce => ce.ToLower() == bc.Id.ToLower())).ToList();
             int deleted = 0;
             foreach (var item in toDelete)
             {

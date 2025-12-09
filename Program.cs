@@ -40,7 +40,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 // // ----- Fetch Expense Allocation -----
                 List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
-                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations);
+                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations, []);
                 Console.WriteLine($"Completed 2 of 9 jobs.");
 
                 // // -- Fetch Expense Cash Advances ---
@@ -60,7 +60,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 // // ----- Fetch Expense Allocation based on Itemization -----
                 List<ReportAllocation> expenseAllocationsItemization = await _expenseService.FetchExpenseAllocationsItemization(itemizations);
-                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocationsItemization);
+                await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocationsItemization, expenseAllocations);
                 Console.WriteLine($"Completed 6 of 9 jobs.");
 
                 // // ----- Fetch Invoice Digests -----
