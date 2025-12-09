@@ -367,7 +367,7 @@ namespace PyxeraConcurIntegrationConsole
                     }
                     // Delete entries that are in BC but not in Concur
                     //find the data which is present in BC but not in concur and delete from BC
-                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemReference.ToLower() == bc.lineItemReference.ToLower() && l.paymentRequestId.ToLower() == bc.paymentRequestId.ToLower())).ToList();
+                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemReference.ToLower() == li.LineItemId.ToLower() && l.paymentRequestId.ToLower() == item.ID.ToLower())).ToList();
                     foreach (var item1 in toDelete)
                     {
                         var url = _config["BusinessCentral:BC_Invoice_Allocations"];
