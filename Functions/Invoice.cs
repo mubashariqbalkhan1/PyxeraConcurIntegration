@@ -350,7 +350,8 @@ namespace PyxeraConcurIntegrationConsole
                         else
                         {
                             var url = _config["BusinessCentral:BC_Invoice_Allocations"];
-                            url = url + $"(" + list.First(bc => bc.lineItemReference.ToLower() == li.LineItemId.ToLower() && bc.paymentRequestId.ToLower() == item.ID.ToLower()).SystemId + ")";
+                            string systemId = list.First(bc => bc.lineItemReference.ToLower() == li.LineItemId.ToLower() && bc.paymentRequestId.ToLower() == item.ID.ToLower()).SystemId;
+                            url = url + $"(" + systemId + ")";
                             var result = await _commonFunctions.UpdateDataToBcSingle(new BC_Invoice_Allocations(ac, li.LineItemId, item.ID), url, bcToken);
                             if (result == "success")
                             {
@@ -365,27 +366,27 @@ namespace PyxeraConcurIntegrationConsole
                         }
                         //Console.WriteLine($"☑️ Processed {success + failure} of {total} records.");
                     }
-                    // Delete entries that are in BC but not in Concur
-                    //find the data which is present in BC but not in concur and delete from BC
-                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemReference.ToLower() == li.LineItemId.ToLower() && l.paymentRequestId.ToLower() == item.ID.ToLower())).ToList();
-                    foreach (var item1 in toDelete)
-                    {
-                        var url = _config["BusinessCentral:BC_Invoice_Allocations"];
-                        url = url + $"(" + item1.SystemId + ")";
-                        var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item1.SystemId);
-                        if (result == "success")
-                        {
-                            success++;
-                        }
-                        else
-                        {
-                            failure++;
-                            errors.Add(result);
-                        }
-                        deleted++;
-                    }
                 }
             }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            // var toDelete = list.Where(bc => !list.Any(l => l.lineItemReference.ToLower() == bc.lineItemReference.ToLower() && l.paymentRequestId.ToLower() == bc.paymentRequestId.ToLower())).ToList();
+            // foreach (var item1 in toDelete)
+            // {
+            //     var url = _config["BusinessCentral:BC_Invoice_Allocations"];
+            //     url = url + $"(" + item1.SystemId + ")";
+            //     var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item1.SystemId);
+            //     if (result == "success")
+            //     {
+            //         success++;
+            //     }
+            //     else
+            //     {
+            //         failure++;
+            //         errors.Add(result);
+            //     }
+            //     deleted++;
+            // }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"BC_Invoice_Allocation: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");
         }
