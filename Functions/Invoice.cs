@@ -249,31 +249,31 @@ namespace PyxeraConcurIntegrationConsole
                             updated++;
                         }
                     }
-                    // Delete entries that are in BC but not in Concur
-                    //find the data which is present in BC but not in concur and delete from BC
-                    var toDelete = list.Where(bc => !list.Any(l => l.lineItemId.ToLower() == bc.lineItemId.ToLower() && l.paymentRequestId.ToLower() == pr.ID.ToLower())).ToList();
-                    foreach (var item in toDelete)
-                    {
-                        var url = _config["BusinessCentral:BC_Invoice_Lines"];
-                        url = url + $"(" + item.SystemId + ")";
-                        var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
-                        if (result == "success")
-                        {
-                            success++;
-                        }
-                        else
-                        {
-                            failure++;
-                            errors.Add(result);
-                        }
-                        deleted++;
-                    }
                 }
                 catch
                 {
                     Console.WriteLine(pr.LineItems);
                     Console.WriteLine($"Failed to map line item of payment request {pr.ID}");
                 }
+            }
+            // Delete entries that are in BC but not in Concur
+            //find the data which is present in BC but not in concur and delete from BC
+            var toDelete = list.Where(bc => !concurExpenses.Any(ce => ce.LineItems != null && ce.LineItems.LineItem.Any(li => li.LineItemId.ToLower() == bc.lineItemId.ToLower() && ce.ID.ToLower() == bc.paymentRequestId.ToLower()))).ToList();
+            foreach (var item in toDelete)
+            {
+                var url = _config["BusinessCentral:BC_Invoice_Lines"];
+                url = url + $"(" + item.SystemId + ")";
+                var result = await _commonFunctions.DeleteDataFromBcSingle(url, bcToken, item.SystemId);
+                if (result == "success")
+                {
+                    success++;
+                }
+                else
+                {
+                    failure++;
+                    errors.Add(result);
+                }
+                deleted++;
             }
             Console.WriteLine(string.Join(Environment.NewLine, errors));
             Console.WriteLine($"BC_Invoice_Line: Sent {total} records → Success: {success}, Failure: {failure}, Added: {added}, Updated: {updated}, Deleted: {deleted}");

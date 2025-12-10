@@ -63,7 +63,7 @@ namespace PyxeraConcurIntegrationConsole
 
                 // // ----- Fetch Invoice Digests -----
                 List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
-                //await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
+                await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
                 Console.WriteLine($"Completed 7 of 9 jobs.");
                 await _invoiceService.SendToBc_InvoiceLines(invoiceDigests);
                 Console.WriteLine($"Completed 8 of 9 jobs.");
