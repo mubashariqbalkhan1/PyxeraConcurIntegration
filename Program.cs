@@ -73,7 +73,7 @@ namespace PyxeraConcurIntegrationConsole
                 // ----- Fetch Payment Jobs -----
                 var stateManager = new StateManager("state.json");
                 var state = stateManager.Load();
-                string currentMonth = DateTime.UtcNow.ToString("yyyy-MM");
+                string currentMonth = DateTime.UtcNow.ToString("yyyy-MM"); 
 
                 Console.WriteLine("******************************************************************");
                 Console.WriteLine($"▶ Processing jobs for {currentMonth}...");
