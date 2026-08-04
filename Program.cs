@@ -29,51 +29,89 @@ namespace PyxeraConcurIntegrationConsole
         public async Task RunAsync()
         {
             var date = DateTime.Now;
+            int successCount = 0;
             _logger.LogInformation($"Starting Concur → BC sync at: {date}");
 
+            #region Expense Sync
             try
             {
                 // ----- Fetch Headers -----
                 List<Report> reports = await _expenseService.FetchHeaders();
                 await _expenseService.SendToBc_ExpensesHeader(reports);
-                Console.WriteLine($"Completed 1 of 9 jobs.");
+                Console.WriteLine($"Completed 1 of 10 jobs.");
+                successCount++;
 
                 // // -- Fetch Expense Cash Advances ---
                 List<ExpenseCashAdvance> cashAdvances = await _expenseService.FetchExpenseCashAdvance(reports);
                 await _expenseService.SendToBc_ExpensesHeaderCashAdvance(cashAdvances);
-                Console.WriteLine($"Completed 2 of 9 jobs.");
+                Console.WriteLine($"Completed 2 of 10 jobs.");
+                successCount++;
 
                 // // ----- Fetch Entries -----
                 List<Entry> entries = await _expenseService.FetchEntries();
                 await _expenseService.SendToBc_ExpensesHeaderEntries(entries);
-                Console.WriteLine($"Completed 3 of 9 jobs.");
+                Console.WriteLine($"Completed 3 of 10 jobs.");
+                successCount++;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception: {ex.Message}");
+            }
+            #endregion
 
+            #region Expense Allocation Sync
+            try
+            {
                 // // // ----- Fetch Itemizations -----
                 List<Itemization> itemizations = await _expenseService.FetchItemizations();
                 await _expenseService.SendToBc_ExpensesHeaderItemization(itemizations);
-                Console.WriteLine($"Completed 4 of 9 jobs.");
+                Console.WriteLine($"Completed 4 of 10 jobs.");
+                successCount++;
 
                 // // ----- Fetch Expense Allocation based on Itemization -----
                 List<ReportAllocation> expenseAllocations = await _expenseService.FetchExpenseAllocations();
                 List<ReportAllocation> expenseAllocationsItemization = await _expenseService.FetchExpenseAllocationsItemization(itemizations);
                 await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocations, expenseAllocationsItemization);
-                Console.WriteLine($"Completed 5 of 9 jobs.");
+                Console.WriteLine($"Completed 5 of 10 jobs.");
+                successCount++;
                 await _expenseService.SendToBc_ExpensesHeaderAllocations(expenseAllocationsItemization, expenseAllocations);
-                Console.WriteLine($"Completed 6 of 9 jobs.");
+                Console.WriteLine($"Completed 6 of 10 jobs.");
+                successCount++;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception: {ex.Message}");
+            }
+            #endregion
 
+            #region Invoice Sync
+            try
+            {
                 // // ----- Fetch Invoice Digests -----
                 List<PaymentRequest> invoiceDigests = await _invoiceService.FetchInvoiceDigest();
                 await _invoiceService.SendToBc_InvoiceHeaders(invoiceDigests);
-                Console.WriteLine($"Completed 7 of 9 jobs.");
+                Console.WriteLine($"Completed 7 of 10 jobs.");
+                successCount++;
                 await _invoiceService.SendToBc_InvoiceLines(invoiceDigests);
-                Console.WriteLine($"Completed 8 of 9 jobs.");
+                Console.WriteLine($"Completed 8 of 10 jobs.");
+                successCount++;
                 await _invoiceService.SendToBc_InvoiceLineAllocations(invoiceDigests);
-                Console.WriteLine($"Completed 9 of 9 jobs.");
+                Console.WriteLine($"Completed 9 of 10 jobs.");
+                successCount++;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Exception: {ex.Message}");
+            }
+            #endregion
 
+            #region Payment Sync
+            try
+            {
                 // ----- Fetch Payment Jobs -----
                 var stateManager = new StateManager("state.json");
                 var state = stateManager.Load();
-                string currentMonth = DateTime.UtcNow.ToString("yyyy-MM"); 
+                string currentMonth = DateTime.UtcNow.ToString("yyyy-MM");
 
                 Console.WriteLine("******************************************************************");
                 Console.WriteLine($"▶ Processing jobs for {currentMonth}...");
@@ -91,6 +129,8 @@ namespace PyxeraConcurIntegrationConsole
                 if (!paymentJobsToRun.Any())
                 {
                     Console.WriteLine($"No payment jobs found for {currentMonth}, skipping.");
+                    Console.WriteLine($"Completed 10 of 10 jobs.");
+                    successCount++;
                 }
                 else
                 {
@@ -159,16 +199,19 @@ namespace PyxeraConcurIntegrationConsole
                     state.LastRunDate = DateTime.UtcNow;
                     stateManager.Save(state);
                     Console.WriteLine($"Jobs for {currentMonth} processed and state updated.");
+                    Console.WriteLine($"Completed 10 of 10 jobs.");
+                    successCount++;
                 }
-
-                var endDate = DateTime.Now;
-                var duration = endDate - date;
-                _logger.LogInformation($"Synchronization completed successfully in {duration.Hours} hours {duration.Minutes} minutes and {duration.Seconds} seconds!");
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Exception: {ex.Message}");
             }
+            #endregion
+
+            var endDate = DateTime.Now;
+            var duration = endDate - date;
+            _logger.LogInformation($"Synchronization completed with {successCount} successful jobs out of 10 in {duration.Hours} hours {duration.Minutes} minutes and {duration.Seconds} seconds!");
         }
 
     }
